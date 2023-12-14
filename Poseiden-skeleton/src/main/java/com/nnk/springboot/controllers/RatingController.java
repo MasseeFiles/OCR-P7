@@ -16,13 +16,11 @@ import java.util.List;
 
 @Controller
 public class RatingController {
-    // TODO: Inject Rating service
     @Autowired
     private RatingServiceImpl ratingServiceImpl;
 
     @RequestMapping("/rating/list")
     public String home(Model model)    {
-        // TODO: find all Rating, add to model
         List<Rating> ratings = ratingServiceImpl.findAll();
         model.addAttribute("ratings", ratings);
 
@@ -35,27 +33,48 @@ public class RatingController {
     }
 
     @PostMapping("/rating/validate")
-    public String validate(@Valid Rating rating, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return Rating list
-        return "rating/add";
+    public String validate(
+            @Valid Rating rating,
+            BindingResult result,   //objet pour enregistrer les erreurs de validation
+            Model model
+    ) {
+        // TODO: check data valid (annotation valid suffisante???) and save to db, after saving return Rating list
+        if (result.hasErrors()) {
+            throw new RuntimeException("Rating" + rating.getId() + "is not valid");
+        } else {
+            ratingServiceImpl.save(rating);
+        }
+        return "rating/list";
     }
 
     @GetMapping("/rating/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get Rating by Id and to model then show to the form
+    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {     //pathvariable : generation dynamique du parametre de methode à partir de l'uri du endpoint
+        Rating ratingToSearch = ratingServiceImpl.findById(id);
+
+        model.addAttribute("rating", ratingToSearch);
+
         return "rating/update";
     }
 
     @PostMapping("/rating/update/{id}")
-    public String updateRating(@PathVariable("id") Integer id, @Valid Rating rating,
-                             BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Rating and return Rating list
+    public String updateRating(
+            @PathVariable("id") Integer id,
+            @Valid Rating rating,
+            BindingResult result,
+            Model model
+    ) {
+        if (result.hasErrors()) {
+            throw new RuntimeException("Rating" + rating.getId() + "is not valid");
+        } else {
+            ratingServiceImpl.update(rating);
+        }
         return "redirect:/rating/list";
     }
 
     @GetMapping("/rating/delete/{id}")
     public String deleteRating(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find Rating by Id and delete the Rating, return to Rating list
+        ratingServiceImpl.delete(id);
+
         return "redirect:/rating/list";
     }
 }

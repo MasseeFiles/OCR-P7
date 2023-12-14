@@ -3,9 +3,7 @@ package com.nnk.springboot.domain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-//import javax.persistence.*;
-//import javax.validation.constraints.NotBlank;
-//import javax.validation.constraints.NotNull;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.sql.Timestamp;
@@ -16,8 +14,6 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "rating")
 public class Rating {
-    // TODO: Map columns in data table RATING with corresponding java fields
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "rating_id")
