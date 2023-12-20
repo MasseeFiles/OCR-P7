@@ -1,7 +1,6 @@
 package com.nnk.springboot.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 //import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -12,6 +11,10 @@ import java.sql.Timestamp;
 @Table(name = "trade")
 public class Trade {
     // TODO: Map columns in data table TRADE with corresponding java fields
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "trade_name_id")
+    Integer id;
 //    Integer tradeId;
 //    String account;
 //    String type;

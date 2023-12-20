@@ -17,7 +17,7 @@ public class Rating {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "rating_id")
-    Integer id;
+    Integer ratingId;
 
     @Column(name = "moodys_rating")
     @NotBlank(message = "MoodysRating cannot be blank") // annotation de validation plutot pour type string

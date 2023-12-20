@@ -1,7 +1,6 @@
 package com.nnk.springboot.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 //import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -11,7 +10,10 @@ import java.sql.Timestamp;
 @Table(name = "rulename")
 public class RuleName {
     // TODO: Map columns in data table RULENAME with corresponding java fields
-//    Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "rule_name_id")
+    Integer id;
 //    String name;
 //    String description;
 //    String json;
