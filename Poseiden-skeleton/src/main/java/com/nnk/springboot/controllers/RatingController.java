@@ -2,10 +2,9 @@ package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.services.RatingService;
-import com.nnk.springboot.services.RatingServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,26 +16,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 import java.util.List;
 
+@RequiredArgsConstructor
 @Controller
 public class RatingController {
     private static final Logger logger = LogManager.getLogger("RatingController");
+    private final RatingService ratingService;     //injection de l'interface
 
-    @Autowired
-    private RatingService ratingService;     //injection de l'interface
+    //    @Autowired
+//    private RatingService ratingService;
 
     @RequestMapping("/rating/list")
-    public String home(Model model)    {
+    public String home(Model model) {
 
         logger.info("Requete pour la recherche de tous les ratings");
 
         List<Rating> ratings = ratingService.findAll();
         model.addAttribute("ratings", ratings);
-
         return "rating/list";
     }
 
     @GetMapping("/rating/add")  //affichage du formulaire
     public String addRatingForm(Rating rating) {
+
+        logger.info("Requete pour l'affichage du formulaire d'ajout d'un rating");
+
         return "rating/add";
     }
 
@@ -50,9 +53,8 @@ public class RatingController {
         logger.info("Requete pour la validation et sauvegarde d'un nouveau rating"); //ajouter un id??
 
         // TODO: check data valid (annotation valid suffisante???) and save to db, after saving return Rating list
-        //check data valid
         if (result.hasErrors()) {
-            throw new RuntimeException("Rating provided is not valid - RatingId used : " + rating.getRatingId());
+            throw new RuntimeException("Rating provided is not valid - Id used : " + rating.getRatingId());
         } else {
             ratingService.save(rating);
         }
@@ -66,7 +68,6 @@ public class RatingController {
 
         Rating ratingToSearch = ratingService.findById(id);
         model.addAttribute("rating", ratingToSearch);
-
         return "rating/update";
     }
 
@@ -81,7 +82,7 @@ public class RatingController {
         logger.info("Requete pour l'update d'un rating");
 
         if (result.hasErrors()) {
-            throw new RuntimeException("Rating provided is not valid - RatingId used : " + rating.getRatingId());
+            throw new RuntimeException("Rating provided is not valid - Id used : " + rating.getRatingId());
         } else {
             ratingService.update(rating);
         }
@@ -89,9 +90,8 @@ public class RatingController {
     }
 
     @GetMapping("/rating/delete/{id}")      //DELETE
-    public String deleteRating(@PathVariable("id") Integer id, Model model) {   //prevoir cas ou id
+    public String deleteRating(@PathVariable("id") Integer id, Model model) {   //prevoir cas ou id non trouvé?
         ratingService.delete(id);
-
         return "redirect:/rating/list";
     }
 }

@@ -1,15 +1,17 @@
 package com.nnk.springboot.services;
 
 import com.nnk.springboot.domain.Rating;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface RatingService {
     List<Rating> findAll();
 
-    void save(Rating rating);
-
     Rating findById(Integer id);
+
+    void save(Rating rating);
 
     void update(Rating rating);
 

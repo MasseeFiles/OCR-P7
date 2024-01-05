@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BidRepository extends JpaRepository<BidList, Integer> {
-//    BidList findBidListById(Integer id);
 }

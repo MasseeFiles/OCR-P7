@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class BidListServiceImpl implements BidListService {
     @Autowired
@@ -17,9 +18,11 @@ public class BidListServiceImpl implements BidListService {
     }
 
     @Override
-    public boolean validate(BidList bidlist) {
-        //traitement sur @valid bidlist???
-        return true;
+    public BidList findById(Integer id) {
+        BidList bidListToFind = bidRepository.findById(id)     //optional<rating>
+                .orElseThrow(() -> new RuntimeException("BidList not found : Id used " + id));
+
+        return bidListToFind;
     }
 
     @Override
@@ -28,15 +31,19 @@ public class BidListServiceImpl implements BidListService {
     }
 
     @Override
-    public BidList findBidlistById(Integer id) {
-            return null;
-//        return bidRepository.findBidListById(id);
+    public void update(BidList bidList) {
+        BidList bidListToUpdate = bidRepository.findById(bidList.getBidListId())
+                .orElseThrow(() -> new RuntimeException("BidList to update not found : Id used " + bidList.getBidListId()));
+
+        bidRepository.delete(bidListToUpdate);
+        bidRepository.save(bidList);
     }
 
     @Override
-    public void delete(BidList bidListToDelete) {
+    public void delete(Integer id) {
+        BidList bidListToDelete = bidRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("BidList to delete not found : Id used " + id));
+
         bidRepository.delete(bidListToDelete);
     }
-
-
 }

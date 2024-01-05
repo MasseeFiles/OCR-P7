@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class RatingServiceImpl implements RatingService {
     @Autowired
@@ -30,7 +31,7 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
-    public void update(Rating rating) { // autre solution : delete et insert
+    public void update(Rating rating) { // autre solution : delete et insert - ex bidlist
         Rating ratingToUpdate = ratingRepository.findById(rating.getRatingId())
                 .orElseThrow(() -> new RuntimeException("Rating to update not found : Id used " + rating.getRatingId()));
 

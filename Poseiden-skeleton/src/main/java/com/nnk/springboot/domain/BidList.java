@@ -1,92 +1,86 @@
 package com.nnk.springboot.domain;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-//import org.springframework.beans.factory.annotation.Required;
+import lombok.Setter;
 
-//import javax.persistence.*;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "bid_list")
 public class BidList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "bid_list_id")
-    private Integer BidListId;
+    private Integer bidListId;
 
-    @Column(name = "account")
+    @NotBlank(message = "Account cannot be blank")
     String account;
 
-    @Column(name = "type")
+    @NotBlank(message = "Type cannot be blank")
     String type;
 
-    @Column(name = "bid_quantity")
+    @NotNull(message = "Bid quantity cannot be blank")
     Double bidQuantity;
 
-    @Column(name = "ask_quantity")
+    @NotNull(message = "Ask quantity cannot be blank")
     Double askQuantity;
 
-    @Column(name = "bid")
+    @NotNull(message = "Bid cannot be blank")
     Double bid;
 
-    @Column(name = "ask")
+    @NotNull(message = "Ask cannot be blank")
     Double ask;
 
-    @Column(name = "benchmark")
+    @NotBlank(message = "Benchmark cannot be blank")
     String benchmark;
 
-    @Column(name = "bid_list_date")
-    //Timestamp : format particulier de date pour utilisation SQL
-    Timestamp bidListDate;
+    @NotNull(message = "Bid list date cannot be blank")
+    Timestamp bidListDate;      //Timestamp : format particulier de date pour utilisation SQL
 
-    @Column(name = "commentary")
+    @NotBlank(message = "Commentary cannot be blank")
     String commentary;
 
-    @Column(name = "security")
+    @NotBlank(message = "Security cannot be blank")
     String security;
 
-    @Column(name = "status")
+    @NotBlank(message = "Status cannot be blank")
     String status;
 
-    @Column(name = "trader")
+    @NotBlank(message = "Trader cannot be blank")
     String trader;
 
-    @Column(name = "book")
+    @NotBlank(message = "Book cannot be blank")
     String book;
 
-    @Column(name = "creation_name")
+    @NotBlank(message = "Creation name cannot be blank")
     String creationName;
 
-    @Column(name = "creation_date")
+    @NotNull(message = "Creation date cannot be blank")
     Timestamp creationDate;
 
-    @Column(name = "revision_name")
+    @NotBlank(message = "Revision name cannot be blank")
     String revisionName;
 
-    @Column(name = "revision_date")
+    @NotNull(message = "Revision date cannot be blank")
     Timestamp revisionDate;
 
-    @Column(name = "deal_name")
+    @NotBlank(message = "Deal name cannot be blank")
     String dealName;
 
-    @Column(name = "deal_type")
+    @NotBlank(message = "Deal type cannot be blank")
     String dealType;
 
-    @Column(name = "source_list_id")
+    @NotBlank(message = "Source list Id cannot be blank")
     String sourceListId;
 
-    @Column(name = "side")
+    @NotBlank(message = "Side cannot be blank")
     String side;
-
-    public BidList(String account, String type, double bidQuantity ) {
-        this.account = account;
-        this.type = type;
-        this.bidQuantity = bidQuantity;
-    }
 }

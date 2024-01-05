@@ -1,8 +1,10 @@
 package com.nnk.springboot;
 
+import com.nnk.springboot.services.RatingService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -10,12 +12,15 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
-@AutoConfigureMockMvc
-
+@WebMvcTest
+//@SpringBootTest
+//@AutoConfigureMockMvc
 public class RatingControllerTest {
     @Autowired
     private MockMvc mockMvc;
+
+//    @Autowired
+//    private RatingService ratingService;
 
     @Test
 //    @WithMockUser - a ajouter apres configuration spring security
@@ -32,7 +37,13 @@ public class RatingControllerTest {
 //    @WithMockUser - a ajouter apres configuration spring security
     void shouldReturnView_Rating_Add() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders    //methode perform sert à envoyer la request lors du test
-                        .get("/rating/add"))
+                        .get("/rating/add")
+                        .param("ratingId", "1")
+                        .param("moodysRating", "moodys1")
+                        .param("sandPRating", "sandp1")
+                        .param("fitchRating", "fitch1")
+                        .param("orderNumber", "1")
+                )
                 .andExpect(MockMvcResultMatchers
                         .status().isOk())
                 .andExpect(MockMvcResultMatchers

@@ -1,17 +1,19 @@
 package com.nnk.springboot.services;
 
 import com.nnk.springboot.domain.BidList;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface BidListService {
     List<BidList> findAll();
 
-    boolean validate(BidList bidlist);
+    BidList findById(Integer id);
 
-    void save(BidList bidlist);
+    void save(BidList bidList);
 
-    BidList findBidlistById(Integer id);
+    void update(BidList bidList);
 
-    void delete(BidList bidListToDelete);
+    void delete(Integer id);
 }
