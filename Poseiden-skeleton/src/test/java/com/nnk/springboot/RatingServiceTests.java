@@ -1,7 +1,5 @@
 package com.nnk.springboot;
 
-import com.nnk.springboot.domain.Rating;
-import com.nnk.springboot.repositories.RatingRepository;
 import com.nnk.springboot.services.RatingService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +12,15 @@ public class RatingServiceTests {
     // test pour methode findall??
 
     @Test
-    void findById_NotFound(){
+    void findById_NotFound() {
         //GIVEN
         Integer idTest = 20;
 
         //WHEN
 
         //THEN
-        assertThrows(RuntimeException.class, () -> {ratingService.findById(idTest);
+        assertThrows(RuntimeException.class, () -> {    //Ok cat IDtest =20 non present dans la BDD test(DataInsertService)
+            ratingService.findById(idTest);
         });
     }
 }

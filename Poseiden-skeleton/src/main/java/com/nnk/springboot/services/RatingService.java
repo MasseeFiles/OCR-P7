@@ -12,8 +12,11 @@ public interface RatingService {
     Rating findById(Integer id);
 
     void save(Rating rating);
+    void add(Rating rating);
+
 
     void update(Rating rating);
 
     void delete(Integer id);
+
 }

@@ -23,6 +23,9 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
+    public void add(Rating ratingToAdd) { ratingRepository.save(ratingToAdd); }
+
+    @Override
     public Rating findById(Integer id) {
         Rating ratingToFind = ratingRepository.findById(id)     //optional<rating>
                 .orElseThrow(() -> new RuntimeException("Rating not found : Id used " + id));   //objet rating

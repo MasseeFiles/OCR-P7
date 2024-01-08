@@ -5,6 +5,7 @@ import com.nnk.springboot.services.RatingService;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,10 +21,9 @@ import java.util.List;
 @Controller
 public class RatingController {
     private static final Logger logger = LogManager.getLogger("RatingController");
-    private final RatingService ratingService;     //injection de l'interface
 
-    //    @Autowired
-//    private RatingService ratingService;
+    @Autowired
+    private final RatingService ratingService;
 
     @RequestMapping("/rating/list")
     public String home(Model model) {
@@ -40,6 +40,7 @@ public class RatingController {
 
         logger.info("Requete pour l'affichage du formulaire d'ajout d'un rating");
 
+        ratingService.add(rating);
         return "rating/add";
     }
 
