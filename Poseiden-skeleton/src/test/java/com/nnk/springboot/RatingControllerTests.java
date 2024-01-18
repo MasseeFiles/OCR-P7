@@ -4,9 +4,7 @@ import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.services.RatingService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -19,11 +17,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @WebMvcTest
-public class RatingControllerTest {     //Test unitaire sur un controller
-    @MockBean
-    private RatingService ratingService;
+public class RatingControllerTests {     //Test unitaire sur un controller
+
     @Autowired
     private MockMvc mockMvc;
+    @MockBean
+    private RatingService ratingService;
+
 
     @Test
 //    @WithMockUser - a ajouter apres configuration spring security
@@ -32,7 +32,7 @@ public class RatingControllerTest {     //Test unitaire sur un controller
         Rating ratingTestToAdd = new Rating(1, "AA", "AA" , "AA" , 1);
         ratingsTest.add(ratingTestToAdd);
 
-        when(ratingService.findAll()).thenReturn(ratingsTest);
+        when(ratingService.findAll()).thenReturn(ratingsTest);  //stubbing
 
         mockMvc.perform(MockMvcRequestBuilders    //methode perform sert à envoyer la request lors du test
                         .get("/rating/list"))

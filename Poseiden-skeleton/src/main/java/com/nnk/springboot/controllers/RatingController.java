@@ -57,7 +57,7 @@ public class RatingController {
         if (result.hasErrors()) {
             throw new RuntimeException("Rating provided is not valid - Id used : " + rating.getRatingId());
         } else {
-            ratingService.save(rating);
+            ratingService.add(rating);
         }
         return "redirect:/rating/list";
     }

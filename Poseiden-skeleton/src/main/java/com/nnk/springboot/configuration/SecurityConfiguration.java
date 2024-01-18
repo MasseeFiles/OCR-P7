@@ -14,8 +14,7 @@
 //    @Bean
 //    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 //        http
-//                .csrf().disable()
-//                .authorizeHttpRequests().anyRequest().permitAll();
+//
 //
 //
 //        return http.build();

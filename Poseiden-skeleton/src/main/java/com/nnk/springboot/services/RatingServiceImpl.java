@@ -9,17 +9,13 @@ import java.util.List;
 
 @Service
 public class RatingServiceImpl implements RatingService {
-    @Autowired
-    private RatingRepository ratingRepository;
-
+    private final RatingRepository ratingRepository;
+    public RatingServiceImpl(RatingRepository ratingRepository) {
+        this.ratingRepository = ratingRepository;
+    }
     @Override
     public List<Rating> findAll() {
         return ratingRepository.findAll();
-    }
-
-    @Override
-    public void save(Rating ratingToSave) {
-        ratingRepository.save(ratingToSave);
     }
 
     @Override
