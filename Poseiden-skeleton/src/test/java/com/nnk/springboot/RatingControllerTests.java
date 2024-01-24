@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
@@ -18,22 +19,15 @@ import static org.mockito.Mockito.when;
 
 @WebMvcTest
 public class RatingControllerTests {     //Test unitaire sur un controller
-
     @Autowired
     private MockMvc mockMvc;
-    @MockBean
+
+    @MockBean   //mock necessaire pour creer le contexte du test (pas autowire)
     private RatingService ratingService;
 
-
     @Test
-//    @WithMockUser - a ajouter apres configuration spring security
+//    @WithMockUser(username = "userEmail1")  // a ajouter apres config de spring security
     void home_shouldReturnViewAndModelUpdated() throws Exception {
-        List<Rating> ratingsTest = new ArrayList<Rating>();
-        Rating ratingTestToAdd = new Rating(1, "AA", "AA" , "AA" , 1);
-        ratingsTest.add(ratingTestToAdd);
-
-        when(ratingService.findAll()).thenReturn(ratingsTest);  //stubbing
-
         mockMvc.perform(MockMvcRequestBuilders    //methode perform sert à envoyer la request lors du test
                         .get("/rating/list"))
                 .andExpect(MockMvcResultMatchers

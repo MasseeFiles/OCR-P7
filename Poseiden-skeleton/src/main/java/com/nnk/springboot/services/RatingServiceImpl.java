@@ -9,10 +9,13 @@ import java.util.List;
 
 @Service
 public class RatingServiceImpl implements RatingService {
+    @Autowired
     private final RatingRepository ratingRepository;
+
     public RatingServiceImpl(RatingRepository ratingRepository) {
         this.ratingRepository = ratingRepository;
     }
+
     @Override
     public List<Rating> findAll() {
         return ratingRepository.findAll();
@@ -23,10 +26,8 @@ public class RatingServiceImpl implements RatingService {
 
     @Override
     public Rating findById(Integer id) {
-        Rating ratingToFind = ratingRepository.findById(id)     //optional<rating>
-                .orElseThrow(() -> new RuntimeException("Rating not found : Id used " + id));   //objet rating
-
-        return ratingToFind;
+        return ratingRepository.findById(id)     //optional<rating>
+                .orElseThrow(() -> new RuntimeException("Rating not found : Id used " + id));
     }
 
     @Override
