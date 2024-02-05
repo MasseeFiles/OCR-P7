@@ -30,4 +30,5 @@ public class Rating {
 
     @NotNull(message = "OrderNumber cannot be blank")  // annotation de validation plus large que @NotBlank
     Integer orderNumber;
+
 }

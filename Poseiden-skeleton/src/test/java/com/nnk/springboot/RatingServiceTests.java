@@ -26,6 +26,7 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest
 public class RatingServiceTests {
+    @Autowired
     private RatingService ratingService;
     @Mock
     private RatingRepository ratingRepository;
@@ -33,7 +34,7 @@ public class RatingServiceTests {
     @BeforeEach
     public void setup() {
         ratingRepository = mock(RatingRepository.class);
-        ratingService = new RatingServiceImpl(ratingRepository);    // Implementation plutot qu'interface???
+//        ratingService = new RatingServiceImpl(ratingRepository);    // Implementation plutot qu'interface???
     }
 
     @Test
@@ -41,18 +42,18 @@ public class RatingServiceTests {
         //GIVEN
         Rating ratingExpected = new Rating(1, "AA", "AA", "AA", 1);
         when(ratingRepository.findById(1)).thenReturn(Optional.of(ratingExpected));
-//        when(ratingRepository.findById(any(Integer.class))).thenReturn(Optional.of(ratingExpected));
 
         //WHEN
         Rating ratingActual = ratingService.findById(1);
 
         //THEN
-        assertEquals(ratingExpected, ratingActual);
+        assertThat(ratingExpected).usingRecursiveComparison()
+                .isEqualTo(ratingActual);
     }
     @Test
     void findById_Rating_Not_Found() {
         //GIVEN
-        Integer idNotInDb = 10; //IDtest = 10 non present dans DBDataInitializer
+        Integer idNotInDb = 10; //IDtest = 10 non present dans DBDataInitializerTest
 
         //WHEN
 

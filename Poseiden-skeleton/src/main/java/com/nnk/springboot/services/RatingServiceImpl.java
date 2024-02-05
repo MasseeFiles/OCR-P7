@@ -9,7 +9,6 @@ import java.util.List;
 
 @Service
 public class RatingServiceImpl implements RatingService {
-    @Autowired
     private final RatingRepository ratingRepository;
 
     public RatingServiceImpl(RatingRepository ratingRepository) {
@@ -31,7 +30,7 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
-    public void update(Rating rating) { // autre solution : delete et insert - ex bidlist
+    public void update(Rating rating) { // autre solution pour update : delete et insert - voir si pb avec rating id
         Rating ratingToUpdate = ratingRepository.findById(rating.getRatingId())
                 .orElseThrow(() -> new RuntimeException("Rating to update not found : Id used " + rating.getRatingId()));
 

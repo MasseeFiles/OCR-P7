@@ -24,7 +24,7 @@ public class RatingController {
     private static final Logger logger = LogManager.getLogger("RatingController");
 
     @Autowired
-    private RatingService ratingService;
+    private final RatingService ratingService;
 
     @RequestMapping("/rating/list")
     public String home(Model model) {
@@ -41,7 +41,7 @@ public class RatingController {
 
         logger.info("Requete pour l'affichage du formulaire d'ajout d'un rating");
 
-        ratingService.add(rating);
+//        ratingService.add(rating);
         return "rating/add";
     }
 

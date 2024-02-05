@@ -22,7 +22,7 @@
 //public class BidListController {
 //    private static final Logger logger = LogManager.getLogger("BidListController");
 //    @Autowired
-//    private BidListService bidlistService;
+//    private final BidListService bidlistService;
 //
 //    @RequestMapping("/bidList/list")
 //    public String home(Model model) {
@@ -30,7 +30,7 @@
 //        logger.info("Requete pour la recherche de tous les bidLists");
 //
 //        List<BidList> bidLists = bidlistService.findAll();
-//        model.addAttribute("bidList", bidLists);
+//        model.addAttribute("bidLists", bidLists);
 //        return "bidList/list";
 //    }
 //

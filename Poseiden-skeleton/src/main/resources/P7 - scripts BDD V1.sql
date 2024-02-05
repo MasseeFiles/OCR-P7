@@ -62,14 +62,14 @@ CREATE TABLE _user (
     );
 
 -- Remplissage table rating
-    INSERT INTO rating (moodys_rating , sandp_rating , fitch_rating , order_number)
+    INSERT INTO rating (moodys_rating , sandprating , fitch_rating , order_number)
     VALUES
     ('moodysRating1' , 'sandpRating1' , 'fitchRating1' , '27'),
     ('moodysRating2' , 'sandpRating2' , 'fitchRating2' , '5'),
     ('moodysRating3' , 'sandpRating3' , 'fitchRating3' , '74');
 
 -- Remplissage table curve_point
-    INSERT INTO curve_point (id , as_of_date , term , curve_value , creation_date)
+    INSERT INTO curve_point ()
       VALUES
       ('1' , '2023-01-01 12:34:56' , '1.01' , '11.01' , CURRENT_TIMESTAMP),
       ('2' , '2023-01-02 12:34:56' , '1.02' , '11.02' , CURRENT_TIMESTAMP),

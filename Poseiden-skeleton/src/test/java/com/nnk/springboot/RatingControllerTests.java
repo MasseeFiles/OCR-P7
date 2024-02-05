@@ -34,6 +34,7 @@ public class RatingControllerTests {     //Test unitaire sur un controller
                         .view().name("rating/list"))
                 .andExpect(MockMvcResultMatchers
                         .model().attributeExists("ratings"));
+        //verifier type (list)
     }
 //
 //    @Test
