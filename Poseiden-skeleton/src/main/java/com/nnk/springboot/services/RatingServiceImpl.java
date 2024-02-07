@@ -26,13 +26,13 @@ public class RatingServiceImpl implements RatingService {
     @Override
     public Rating findById(Integer id) {
         return ratingRepository.findById(id)     //optional<rating>
-                .orElseThrow(() -> new RuntimeException("Rating not found : Id used " + id));
+                .orElseThrow(() -> new IllegalArgumentException("Rating not found : Id used " + id));
     }
 
     @Override
     public void update(Rating rating) { // autre solution pour update : delete et insert - voir si pb avec rating id
         Rating ratingToUpdate = ratingRepository.findById(rating.getRatingId())
-                .orElseThrow(() -> new RuntimeException("Rating to update not found : Id used " + rating.getRatingId()));
+                .orElseThrow(() -> new IllegalArgumentException("Rating to update not found : Id used " + rating.getRatingId()));
 
         ratingToUpdate.setMoodysRating(rating.getMoodysRating());
         ratingToUpdate.setSandPRating(rating.getSandPRating());
@@ -45,7 +45,7 @@ public class RatingServiceImpl implements RatingService {
     @Override
     public void delete(Integer id) {
         Rating ratingToDelete = ratingRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Rating to delete not found : Id used " + id));
+                .orElseThrow(() -> new IllegalArgumentException("Rating to delete not found : Id used " + id));
 
         ratingRepository.delete(ratingToDelete);
     }

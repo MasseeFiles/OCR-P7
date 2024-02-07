@@ -41,7 +41,6 @@ public class RatingController {
 
         logger.info("Requete pour l'affichage du formulaire d'ajout d'un rating");
 
-//        ratingService.add(rating);
         return "rating/add";
     }
 
@@ -54,9 +53,8 @@ public class RatingController {
 
         logger.info("Requete pour la validation et sauvegarde d'un nouveau rating"); //ajouter un id??
 
-        // TODO: check data valid (annotation valid suffisante???) and save to db, after saving return Rating list
         if (result.hasErrors()) {
-            throw new RuntimeException("Rating provided is not valid - Id used : " + rating.getRatingId());
+            throw new IllegalArgumentException("Rating provided is not valid - Id used : " + rating.getRatingId());
         } else {
             ratingService.add(rating);
         }
@@ -84,7 +82,7 @@ public class RatingController {
         logger.info("Requete pour l'update d'un rating");
 
         if (result.hasErrors()) {
-            throw new RuntimeException("Rating provided is not valid - Id used : " + rating.getRatingId());
+            throw new IllegalArgumentException("Rating provided is not valid - Id used : " + rating.getRatingId());
         } else {
             ratingService.update(rating);
         }
