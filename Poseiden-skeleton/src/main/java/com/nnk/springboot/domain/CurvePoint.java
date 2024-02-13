@@ -22,10 +22,10 @@ public class CurvePoint {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
-    @NotNull(message = "Curve id cannot be blank")
+//    @NotNull(message = "Curve id cannot be blank")
     Integer curveId;
 
-    @NotNull(message = "As of date cannot be blank")
+//    @NotNull(message = "As of date cannot be blank")
     Timestamp asOfDate;
 
     @NotNull(message = "Term cannot be blank")
@@ -34,6 +34,6 @@ public class CurvePoint {
     @NotNull(message = "Value cannot be blank")
     Double value;
 
-    @NotNull(message = "Creation date cannot be blank")
+//    @NotNull(message = "Creation date cannot be blank")
     Timestamp creationDate;
 }

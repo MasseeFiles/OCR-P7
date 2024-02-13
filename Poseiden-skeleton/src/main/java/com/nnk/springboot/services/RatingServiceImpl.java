@@ -2,7 +2,6 @@ package com.nnk.springboot.services;
 
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.repositories.RatingRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,7 +20,8 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
-    public void add(Rating ratingToAdd) { ratingRepository.save(ratingToAdd); }
+    public void add(Rating ratingToAdd) { ratingRepository.save(ratingToAdd);
+    }
 
     @Override
     public Rating findById(Integer id) {
@@ -30,7 +30,7 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
-    public void update(Rating rating) { // autre solution pour update : delete et insert - voir si pb avec rating id
+    public void update(Rating rating) {
         Rating ratingToUpdate = ratingRepository.findById(rating.getRatingId())
                 .orElseThrow(() -> new IllegalArgumentException("Rating to update not found : Id used " + rating.getRatingId()));
 

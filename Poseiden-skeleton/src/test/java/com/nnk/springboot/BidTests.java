@@ -1,7 +1,7 @@
 //package com.nnk.springboot;
 //
 //import com.nnk.springboot.domain.BidList;
-//import com.nnk.springboot.repositories.BidRepository;
+//import com.nnk.springboot.repositories.BidListRepository;
 //import org.assertj.core.api.Assert;
 //import org.junit.Assert;
 //import org.junit.Test;
@@ -19,7 +19,7 @@
 //public class BidTests {
 //
 //	@Autowired
-//	private BidRepository bidListRepository;
+//	private BidListRepository bidListRepository;
 //
 //	@Test
 //	public void bidListTest() {
