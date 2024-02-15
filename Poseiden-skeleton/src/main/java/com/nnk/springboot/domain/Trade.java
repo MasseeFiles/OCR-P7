@@ -4,12 +4,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 @Getter
@@ -20,7 +18,7 @@ import java.sql.Timestamp;
 public class Trade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer tradeId;
+    private Integer tradeId;
 
     @NotBlank(message = "Account cannot be blank")
     private String account;
@@ -28,7 +26,7 @@ public class Trade {
     @NotBlank(message = "Type cannot be blank")
     private String type;
 
-    @NotBlank(message = "Buy quantity cannot be blank")
+    @NotNull(message = "Buy quantity cannot be blank")
     private Double buyQuantity;
 
     private Double sellQuantity;

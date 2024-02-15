@@ -5,10 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.sql.Timestamp;
 
@@ -20,20 +17,17 @@ import java.sql.Timestamp;
 public class CurvePoint {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    private Integer id;
 
-//    @NotNull(message = "Curve id cannot be blank")
-    Integer curveId;
+    private Integer curveId;
 
-//    @NotNull(message = "As of date cannot be blank")
-    Timestamp asOfDate;
+    private Timestamp asOfDate;
 
     @NotNull(message = "Term cannot be blank")
-    Double term;
+    private Double term;
 
     @NotNull(message = "Value cannot be blank")
-    Double value;
+    private Double value;
 
-//    @NotNull(message = "Creation date cannot be blank")
-    Timestamp creationDate;
+    private Timestamp creationDate;
 }

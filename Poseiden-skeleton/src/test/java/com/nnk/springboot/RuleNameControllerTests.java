@@ -1,6 +1,6 @@
 package com.nnk.springboot;
 
-import com.nnk.springboot.domain.BidList;
+import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.services.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,15 +14,17 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
 @WebMvcTest
-class BidListControllerTests {
+public class RuleNameControllerTests {
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private BidListService bidListService;
-
+    private RuleService ruleNameService;
     @MockBean   //mock necessaire pour creer le contexte du test (pas autowire)
     private RatingService ratingService;
+
+    @MockBean
+    private BidListService bidListService;
 
     @MockBean
     private CurvePointService curvePointService;
@@ -33,49 +35,49 @@ class BidListControllerTests {
     @MockBean
     private UserService userService;
 
-    @MockBean
-    private RuleService ruleNameService;
-
     @Test
 //    @WithMockUser(username = "userEmail1")  // a ajouter apres config de spring security
     void home_shouldReturnViewAndModelUpdated() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders
-                        .get("/bidList/list")
+        mockMvc.perform(MockMvcRequestBuilders    //methode perform sert à envoyer la request lors du test
+                        .get("/ruleName/list")
                 )
                 .andExpect(MockMvcResultMatchers
                         .status().isOk())
                 .andExpect(MockMvcResultMatchers
-                        .view().name("bidList/list"))
+                        .view().name("ruleName/list"))
                 .andExpect(MockMvcResultMatchers
-                        .model().attributeExists("bidLists"));
+                        .model().attributeExists("ruleNames"));
     }
 
     @Test
-        //    @WithMockUser - a ajouter apres configuration spring security
-    void addBidForm_shouldReturnView() throws Exception {
+//    @WithMockUser - a ajouter apres configuration spring security
+    void addRuleForm_shouldReturnView() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/bidList/add")
+                        .get("/ruleName/add")
                 )
                 .andExpect(MockMvcResultMatchers
                         .status().isOk())
                 .andExpect(MockMvcResultMatchers
-                        .view().name("bidList/add"));
+                        .view().name("ruleName/add"));
     }
 
     @Test
 //    @WithMockUser - a ajouter apres configuration spring security
     void validate_shouldReturnViewRedirect() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders    //methode perform sert à envoyer la request lors du test
-                        .post("/bidList/validate")
-                        .param("id", "1")
-                        .param("account", "1")
-                        .param("type", "1")
-                        .param("bidQuantity", "1")
+                        .post("/ruleName/validate")
+                        .param("ruleId", "1")
+                        .param("name", "1")
+                        .param("description", "1")
+                        .param("json", "1")
+                        .param("template", "1")
+                        .param("sqlStr", "1")
+                        .param("sqlPart", "1")
                 )
                 .andExpect(MockMvcResultMatchers
                         .status().is3xxRedirection())
                 .andExpect(MockMvcResultMatchers
-                        .view().name("redirect:/bidList/list"));
+                        .view().name("redirect:/ruleName/list"));
     }
 
     @Test
@@ -83,71 +85,75 @@ class BidListControllerTests {
     void validate_shouldThrowIllegalArgumentException() throws Exception {
         assertThatThrownBy(
                 () -> mockMvc.perform(MockMvcRequestBuilders
-                        .post("/bidList/validate")
-                        .param("id", "100")
+                        .post("/ruleName/validate")
+                        .param("ruleId", "100")
                 ))
                 .hasCauseInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("BidList provided is not valid - Id used : 100");
+                .hasMessageContaining("RuleName provided is not valid - Id used : 100");
     }
 
     @Test
 //    @WithMockUser - a ajouter apres configuration spring security
-    void showUpdateForm_shouldReturnView() throws Exception {
+    void showRuleNameForm_shouldReturnView() throws Exception {
         //GIVEN
-        BidList bidListTest = new BidList();
-        when(bidListService.findById(1)).thenReturn(bidListTest);
+        RuleName ruleNameTest = new RuleName();
+        when(ruleNameService.findById(1)).thenReturn(ruleNameTest);
 
         //WHEN
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/bidList/update/1")
+                        .get("/ruleName/update/1")
                 )
 
         //THEN
                 .andExpect(MockMvcResultMatchers
                         .status().isOk())
                 .andExpect(MockMvcResultMatchers
-                        .view().name("bidList/update"))
+                        .view().name("ruleName/update"))
                 .andExpect(MockMvcResultMatchers
-                        .model().attributeExists("bidList"));
+                        .model().attributeExists("ruleName"));
     }
 
     @Test
 //    @WithMockUser - a ajouter apres configuration spring security
-    void updateBidList_shouldReturnView_Redirect() throws Exception {
+    void updateRuleName_shouldReturnView_Redirect() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                        .post("/bidList/update/1")
-                        .param("account", "1")
-                        .param("type", "1")
-                        .param("bidQuantity", "1")
+                        .post("/ruleName/update/1")
+                        .param("ruleId", "1")
+                        .param("name", "1")
+                        .param("description", "1")
+                        .param("json", "1")
+                        .param("template", "1")
+                        .param("sqlStr", "1")
+                        .param("sqlPart", "1")
                 )
                 .andExpect(MockMvcResultMatchers
                         .status().is3xxRedirection())
                 .andExpect(MockMvcResultMatchers
-                        .view().name("redirect:/bidList/list"));
+                        .view().name("redirect:/ruleName/list"));
     }
 
     @Test
 //    @WithMockUser - a ajouter apres configuration spring security
-    void updateBidList_shouldThrowIllegalArgumentException() throws Exception {
+    void updateruleName_shouldThrowIllegalArgumentException() throws Exception {
         assertThatThrownBy(
                 () -> mockMvc.perform(MockMvcRequestBuilders
-                        .post("/bidList/update/1")
-                        .param("id", "1")
+                        .post("/ruleName/update/1")
+                        .param("ruleId", "1") //exception car certains attributs à valider sont absents
                 ))
                 .hasCauseInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("BidList provided is not valid - Id used : 1");
+                .hasMessageContaining("RuleName provided is not valid - Id used : 1");
     }
 
     @Test
 //    @WithMockUser - a ajouter apres configuration spring security
-    void deleteBid_shouldReturnView_Redirect() throws Exception {
+    void deleteRuleNameRating_shouldReturnView_Redirect() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/bidList/delete/1")
+                        .get("/ruleName/delete/1")
                 )
                 .andExpect(MockMvcResultMatchers
                         .status().is3xxRedirection())
                 .andExpect(MockMvcResultMatchers
-                        .view().name("redirect:/bidList/list")
+                        .view().name("redirect:/ruleName/list")
                 );
     }
 }

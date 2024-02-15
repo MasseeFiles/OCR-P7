@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(Integer id) {
         User userToFind = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found : Id used " + id));
+                .orElseThrow(() -> new IllegalArgumentException("User not found : Id used " + id));
 
         return userToFind;
     }
@@ -33,9 +33,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void update(User user) {
         User userToUpdate = userRepository.findById(user.getUserId())
-                .orElseThrow(() -> new RuntimeException("User to update not found : Id used " + user.getUserId()));
+                .orElseThrow(() -> new IllegalArgumentException("User to update not found : Id used " + user.getUserId()));
 
         userRepository.delete(userToUpdate);
+
         userRepository.save(user);
     }
 

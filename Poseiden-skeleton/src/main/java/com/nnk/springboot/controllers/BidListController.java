@@ -35,26 +35,26 @@ public class BidListController {
     }
 
     @GetMapping("/bidList/add")
-    public String addBidForm(BidList bidlist) {
+    public String addBidForm(BidList bidList) {
 
-        logger.info("Requete pour l'affichage du formulaire d'ajout d'un bidlist");
+        logger.info("Requete pour l'affichage du formulaire d'ajout d'un bidList");
 
         return "bidList/add";
     }
 
     @PostMapping("/bidList/validate")   //CREATE
     public String validate(
-            @Valid BidList bidlist,         //@Valid : annotation SpringBoot permettant de verifier les contraintes sur objet BID (Bean Validation provider - Hibernate Validator)
+            @Valid BidList bidList,         //@Valid : annotation SpringBoot permettant de verifier les contraintes sur objet BID (Bean Validation provider - Hibernate Validator)
             BindingResult result,
             Model model
     ) {
 
-        logger.info("Requete pour la validation et sauvegarde d'une nouvelle bidlist");
+        logger.info("Requete pour la validation et sauvegarde d'une nouvelle bidList");
 
         if (result.hasErrors()) {
-            throw new IllegalArgumentException("Bidlist provided is not valid - Id used : " + bidlist.getId());
+            throw new IllegalArgumentException("BidList provided is not valid - Id used : " + bidList.getId());
         } else {
-            bidListService.add(bidlist);
+            bidListService.add(bidList);
         }
         return "redirect:/bidList/list";
     }
@@ -62,7 +62,7 @@ public class BidListController {
     @GetMapping("/bidList/update/{id}") //Affichage du form UPDATE
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
 
-        logger.info("Requete pour l'affichage du formulaire d'update d'un bidlist");
+        logger.info("Requete pour l'affichage du formulaire d'update d'un bidList");
 
         BidList bidListToSearch = bidListService.findById(id);
         model.addAttribute("bidList", bidListToSearch);
@@ -70,14 +70,14 @@ public class BidListController {
     }
 
     @PostMapping("/bidList/update/{id}")    //UPDATE
-    public String updateBid(
+    public String updateBidList(
             @PathVariable("id") Integer id,
             @Valid BidList bidList,
             BindingResult result,
             Model model
     ) {
 
-        logger.info("Requete pour l'update d'un bidlist");
+        logger.info("Requete pour l'update d'un bidList");
 
         if (result.hasErrors()) {
             throw new IllegalArgumentException("BidList provided is not valid - Id used : " + bidList.getId());

@@ -21,8 +21,6 @@ import javax.validation.Valid;
 @Controller
 public class UserController {
     private static final Logger logger = LogManager.getLogger("UserController");
-//    @Autowired
-//    private UserRepository userRepository;
 
     @Autowired
     private UserService userService;
@@ -48,22 +46,24 @@ public class UserController {
     public String validate(
             @Valid User user,
             BindingResult result,
-            Model model) {
+            Model model
+    ) {
 
         logger.info("Requete pour la validation et sauvegarde d'un nouveau user");
 
-        if (!result.hasErrors()) {
-
+        if (result.hasErrors()) {
+            throw new IllegalArgumentException("User provided is not valid - Id used : " + user.getUserId());
+        } else {
             //TODO : A utiliser apres mise en place de Spring Security
 //            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 //            user.setPassword(encoder.encode(user.getPassword()));
 
             userService.add(user);
             model.addAttribute("users", userService.findAll());
-            return "redirect:/user/list";
-
         }
-        return "user/add";
+        return "redirect:/user/list";
+        //        return "user/add";
+
     }
 
     @GetMapping("/user/update/{id}")
@@ -88,20 +88,20 @@ public class UserController {
     ) {
 
         if (result.hasErrors()) {
-            return "user/update";
-        }
+            throw new IllegalArgumentException("User provided is not valid - Id used : " + user.getUserId());
+        } else {
 //TODO : A utiliser apres mise en place de Spring Security - a mettre dans le service???
 //        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 //        user.setPassword(encoder.encode(user.getPassword()));
 
 //        user.setPassword(user.getPassword());
-//
 //        user.setUserId(id);
 //        userRepository.save(user);
 
         userService.update(user);
-        model.addAttribute("users", userService.findAll());
+//        model.addAttribute("users", userService.findAll());
         return "redirect:/user/list";
+        }
     }
 
     @GetMapping("/user/delete/{id}")

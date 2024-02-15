@@ -1,6 +1,6 @@
 package com.nnk.springboot;
 
-import com.nnk.springboot.domain.BidList;
+import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.services.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,15 +14,17 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
 @WebMvcTest
-class BidListControllerTests {
+public class UserControllerTests {
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private BidListService bidListService;
-
-    @MockBean   //mock necessaire pour creer le contexte du test (pas autowire)
+    private UserService userService;
+    @MockBean
     private RatingService ratingService;
+
+    @MockBean
+    private BidListService bidListService;
 
     @MockBean
     private CurvePointService curvePointService;
@@ -31,51 +33,49 @@ class BidListControllerTests {
     private TradeService tradeService;
 
     @MockBean
-    private UserService userService;
-
-    @MockBean
     private RuleService ruleNameService;
 
     @Test
 //    @WithMockUser(username = "userEmail1")  // a ajouter apres config de spring security
     void home_shouldReturnViewAndModelUpdated() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders
-                        .get("/bidList/list")
+        mockMvc.perform(MockMvcRequestBuilders    //methode perform sert à envoyer la request lors du test
+                        .get("/user/list")
                 )
                 .andExpect(MockMvcResultMatchers
                         .status().isOk())
                 .andExpect(MockMvcResultMatchers
-                        .view().name("bidList/list"))
+                        .view().name("user/list"))
                 .andExpect(MockMvcResultMatchers
-                        .model().attributeExists("bidLists"));
+                        .model().attributeExists("users"));
     }
 
     @Test
-        //    @WithMockUser - a ajouter apres configuration spring security
-    void addBidForm_shouldReturnView() throws Exception {
+//    @WithMockUser - a ajouter apres configuration spring security
+    void addUserForm_shouldReturnView() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/bidList/add")
+                        .get("/user/add")
                 )
                 .andExpect(MockMvcResultMatchers
                         .status().isOk())
                 .andExpect(MockMvcResultMatchers
-                        .view().name("bidList/add"));
+                        .view().name("user/add"));
     }
 
     @Test
 //    @WithMockUser - a ajouter apres configuration spring security
     void validate_shouldReturnViewRedirect() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders    //methode perform sert à envoyer la request lors du test
-                        .post("/bidList/validate")
-                        .param("id", "1")
-                        .param("account", "1")
-                        .param("type", "1")
-                        .param("bidQuantity", "1")
+                        .post("/user/validate")
+                        .param("userId", "1")
+                        .param("userName", "1")
+                        .param("password", "1")
+                        .param("fullName", "1")
+                        .param("role", "admin")
                 )
                 .andExpect(MockMvcResultMatchers
                         .status().is3xxRedirection())
                 .andExpect(MockMvcResultMatchers
-                        .view().name("redirect:/bidList/list"));
+                        .view().name("redirect:/user/list"));
     }
 
     @Test
@@ -83,71 +83,75 @@ class BidListControllerTests {
     void validate_shouldThrowIllegalArgumentException() throws Exception {
         assertThatThrownBy(
                 () -> mockMvc.perform(MockMvcRequestBuilders
-                        .post("/bidList/validate")
-                        .param("id", "100")
+                        .post("/user/validate")
+                        .param("userId", "100")
                 ))
                 .hasCauseInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("BidList provided is not valid - Id used : 100");
+                .hasMessageContaining("User provided is not valid - Id used : 100");
     }
 
     @Test
 //    @WithMockUser - a ajouter apres configuration spring security
     void showUpdateForm_shouldReturnView() throws Exception {
         //GIVEN
-        BidList bidListTest = new BidList();
-        when(bidListService.findById(1)).thenReturn(bidListTest);
+        Rating ratingTest = new Rating();
+        when(ratingService.findById(1)).thenReturn(ratingTest);
 
         //WHEN
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/bidList/update/1")
+                        .get("/rating/update/1")
                 )
 
         //THEN
                 .andExpect(MockMvcResultMatchers
                         .status().isOk())
                 .andExpect(MockMvcResultMatchers
-                        .view().name("bidList/update"))
+                        .view().name("rating/update"))
                 .andExpect(MockMvcResultMatchers
-                        .model().attributeExists("bidList"));
+                        .model().attributeExists("rating"));
     }
 
     @Test
 //    @WithMockUser - a ajouter apres configuration spring security
-    void updateBidList_shouldReturnView_Redirect() throws Exception {
+    void updateUser_shouldReturnView_Redirect() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                        .post("/bidList/update/1")
-                        .param("account", "1")
-                        .param("type", "1")
-                        .param("bidQuantity", "1")
+                        .post("/user/update/1")
+                        .param("userName", "1")
+                        .param("password", "1")
+                        .param("fullName", "1")
+                        .param("role", "admin")
                 )
                 .andExpect(MockMvcResultMatchers
                         .status().is3xxRedirection())
                 .andExpect(MockMvcResultMatchers
-                        .view().name("redirect:/bidList/list"));
+                        .view().name("redirect:/user/list"));
     }
 
     @Test
 //    @WithMockUser - a ajouter apres configuration spring security
-    void updateBidList_shouldThrowIllegalArgumentException() throws Exception {
+    void updateRating_shouldThrowIllegalArgumentException() throws Exception {
         assertThatThrownBy(
                 () -> mockMvc.perform(MockMvcRequestBuilders
-                        .post("/bidList/update/1")
-                        .param("id", "1")
+                        .post("/rating/update/1")
+                        .param("ratingId", "1") //exception car certains attributs à valider sont absents
                 ))
                 .hasCauseInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("BidList provided is not valid - Id used : 1");
+                .hasMessageContaining("Rating provided is not valid - Id used : 1");
     }
 
     @Test
 //    @WithMockUser - a ajouter apres configuration spring security
-    void deleteBid_shouldReturnView_Redirect() throws Exception {
+    void deleteRating_shouldReturnView_Redirect() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/bidList/delete/1")
+                        .get("/rating/delete/1")
                 )
                 .andExpect(MockMvcResultMatchers
                         .status().is3xxRedirection())
                 .andExpect(MockMvcResultMatchers
-                        .view().name("redirect:/bidList/list")
+                        .view().name("redirect:/rating/list")
                 );
     }
 }
+
+
+

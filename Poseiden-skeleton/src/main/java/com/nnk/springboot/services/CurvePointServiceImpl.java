@@ -20,7 +20,7 @@ public class CurvePointServiceImpl implements CurvePointService {
     @Override
     public CurvePoint findById(Integer id) {
         CurvePoint curvePointToFind = curvePointRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("CurvePoint not found : Id used " + id));
+                .orElseThrow(() -> new IllegalArgumentException("CurvePoint not found : Id used " + id));
 
         return curvePointToFind;
     }
@@ -33,7 +33,7 @@ public class CurvePointServiceImpl implements CurvePointService {
     @Override
     public void update(CurvePoint curvePoint) {
         CurvePoint curvePointToUpdate = curvePointRepository.findById(curvePoint.getId())
-                .orElseThrow(() -> new RuntimeException("CurvePoint to update not found : Id used " + curvePoint.getId()));
+                .orElseThrow(() -> new IllegalArgumentException("CurvePoint to update not found : Id used " + curvePoint.getId()));
 
         curvePointRepository.delete(curvePointToUpdate);
         curvePointRepository.save(curvePoint);
@@ -42,7 +42,7 @@ public class CurvePointServiceImpl implements CurvePointService {
     @Override
     public void delete(Integer id) {
         CurvePoint curvePointToDelete = curvePointRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("CurvePoint to delete not found : Id used " + id));
+                .orElseThrow(() -> new IllegalArgumentException("CurvePoint to delete not found : Id used " + id));
 
         curvePointRepository.delete(curvePointToDelete);
     }

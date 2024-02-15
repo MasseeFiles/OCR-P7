@@ -31,7 +31,7 @@ public class RatingServiceTests {
     @Test
     void findById_Ok() {
         //GIVEN
-        Rating ratingExpected = new Rating(1, "11", "22", "33", 1);
+        Rating ratingExpected = new Rating(1, "AA", "BB", "CC", 1);
         when(ratingRepository.findById(1)).thenReturn(Optional.of(ratingExpected));
 
         //WHEN

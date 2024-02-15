@@ -20,7 +20,7 @@ public class RuleServiceImpl implements RuleService {
     @Override
     public RuleName findById(Integer id) {
         RuleName ruleNameToFind = ruleNameRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("RuleName not found : Id used " + id));
+                .orElseThrow(() -> new IllegalArgumentException("RuleName not found : Id used " + id));
 
         return ruleNameToFind;
     }
@@ -33,7 +33,7 @@ public class RuleServiceImpl implements RuleService {
     @Override
     public void update(RuleName ruleName) {
         RuleName ruleNameToUpdate = ruleNameRepository.findById(ruleName.getRuleId())
-                .orElseThrow(() -> new RuntimeException("RuleName to update not found : Id used " + ruleName.getRuleId()));
+                .orElseThrow(() -> new IllegalArgumentException("RuleName to update not found : Id used " + ruleName.getRuleId()));
 
         ruleNameRepository.delete(ruleNameToUpdate);
         ruleNameRepository.save(ruleName);
@@ -42,7 +42,7 @@ public class RuleServiceImpl implements RuleService {
     @Override
     public void delete(Integer id) {
         RuleName ruleNameToDelete = ruleNameRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("RuleName to delete not found : Id used " + id));
+                .orElseThrow(() -> new IllegalArgumentException("RuleName to delete not found : Id used " + id));
 
         ruleNameRepository.delete(ruleNameToDelete);
     }

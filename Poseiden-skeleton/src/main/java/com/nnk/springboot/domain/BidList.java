@@ -19,65 +19,47 @@ public class BidList {
     private Integer id;
 
     @NotBlank(message = "Account cannot be blank")
-    String account;
+    private String account;
 
     @NotBlank(message = "Type cannot be blank")
-    String type;
+    private String type;
 
     @NotNull(message = "Bid quantity cannot be blank")
-    Double bidQuantity;
+    private Double bidQuantity;
 
-//    @NotNull(message = "Ask quantity cannot be blank")
-    Double askQuantity;
+    private Double askQuantity;
 
-//    @NotNull(message = "Bid cannot be blank")
-    Double bid;
+    private Double bid;
 
-//    @NotNull(message = "Ask cannot be blank")
-    Double ask;
+    private Double ask;
 
-//    @NotBlank(message = "Benchmark cannot be blank")
-    String benchmark;
+    private String benchmark;
 
-//    @NotNull(message = "Bid list date cannot be blank")
-    Timestamp bidListDate;      //Timestamp : format particulier de date pour utilisation SQL
+    private Timestamp bidListDate;      //Timestamp : format particulier de date pour utilisation SQL
 
-//    @NotBlank(message = "Commentary cannot be blank")
-    String commentary;
+    private String commentary;
 
-//    @NotBlank(message = "Security cannot be blank")
-    String security;
+    private String security;
 
-//    @NotBlank(message = "Status cannot be blank")
-    String status;
+    private String status;
 
-//    @NotBlank(message = "Trader cannot be blank")
-    String trader;
+    private String trader;
 
-//    @NotBlank(message = "Book cannot be blank")
-    String book;
+    private String book;
 
-//    @NotBlank(message = "Creation name cannot be blank")
-    String creationName;
+    private String creationName;
 
-//    @NotNull(message = "Creation date cannot be blank")
-    Timestamp creationDate;
+    private Timestamp creationDate;
 
-//    @NotBlank(message = "Revision name cannot be blank")
-    String revisionName;
+    private String revisionName;
 
-//    @NotNull(message = "Revision date cannot be blank")
-    Timestamp revisionDate;
+    private Timestamp revisionDate;
 
-//    @NotBlank(message = "Deal name cannot be blank")
-    String dealName;
+    private String dealName;
 
-//    @NotBlank(message = "Deal type cannot be blank")
-    String dealType;
+    private String dealType;
 
-//    @NotBlank(message = "Source list Id cannot be blank")
-    String sourceListId;
+    private String sourceListId;
 
-//    @NotBlank(message = "Side cannot be blank")
-    String side;
+    private String side;
 }

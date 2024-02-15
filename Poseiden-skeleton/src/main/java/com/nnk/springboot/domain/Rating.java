@@ -1,12 +1,15 @@
 package com.nnk.springboot.domain;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-
-import lombok.*;
-
-import java.sql.Timestamp;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -17,18 +20,17 @@ public class Rating {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    @Column(name = "rating_id") // necessaire uniquement si on veut imposer un nom de table particulier
-    Integer ratingId;
+    private Integer ratingId;
 
     @NotBlank(message = "MoodysRating cannot be blank") // annotation de validation plutot pour type string
-    String moodysRating;
+    private String moodysRating;
 
     @NotBlank(message = "SanPRating cannot be blank")
-    String sandPRating;
+    private String sandPRating;
 
     @NotBlank(message = "FitchRating cannot be blank")
-    String fitchRating;
+    private String fitchRating;
 
     @NotNull(message = "OrderNumber cannot be blank")  // annotation de validation plus large que @NotBlank
-    Integer orderNumber;
-
+    private Integer orderNumber;
 }

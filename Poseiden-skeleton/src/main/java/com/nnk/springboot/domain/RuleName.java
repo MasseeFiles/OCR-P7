@@ -2,10 +2,7 @@ package com.nnk.springboot.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 //import javax.persistence.*;
 
@@ -17,23 +14,23 @@ import lombok.Setter;
 public class RuleName {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer ruleId;
+    private Integer ruleId;
 
     @NotBlank(message = "Name cannot be blank")
-    String name;
+    private String name;
 
     @NotBlank(message = "Description cannot be blank")
-    String description;
+    private String description;
 
     @NotBlank(message = "Json cannot be blank")
-    String json;
+    private String json;
 
     @NotBlank(message = "Template cannot be blank")
-    String template;
+    private String template;
 
     @NotBlank(message = "Sql_str cannot be blank")
-    String sqlStr;
+    private String sqlStr;
 
     @NotBlank(message = "Sql_part cannot be blank")
-    String sqlPart;
+    private String sqlPart;
 }

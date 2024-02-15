@@ -66,7 +66,7 @@ public class RuleNameController {
         logger.info("Requete pour l'affichage du formulaire d'update d'une rule");
 
         RuleName ruleNameToUpdate = ruleService.findById(id);
-        model.addAttribute("rule", ruleNameToUpdate);
+        model.addAttribute("ruleName", ruleNameToUpdate);
         return "ruleName/update";
     }
 
