@@ -16,26 +16,22 @@ public class DBDataInitializerApp{
                                 TradeRepository tradeRepository,
                                 UserRepository userRepository
     ) {
-
-        long datetime = System.currentTimeMillis();
-        Timestamp timestamp = new Timestamp(datetime);
-
         Rating[] ratings = new Rating[3];
-        ratings[0] = new Rating(1,"ee", "ed", "edr", 4);
-        ratings[1] = new Rating(2, "44", "55", "66", 2);
-        ratings[2] = new Rating(3, "77", "88", "99", 3);
+        ratings[0] = new Rating(1, "AA", "BB", "CC", 1);
+        ratings[1] = new Rating(2, "DD", "EE", "FF", 2);
+        ratings[2] = new Rating(3, "GG", "HH", "II", 3);
         ratingRepository.saveAll(Arrays.asList(ratings));
 
         BidList[] bidLists = new BidList[3];
-        bidLists[0] = new BidList(1, "account1", "type1", 1.0, 1.0, 1.0, 1.0, "benchmark1", timestamp, "commentary1", "security1", "status1", "trader1", "book1", "creationName1", timestamp, "revisionName1", timestamp, "dealName1", "dealType1", "sourceListId1", "side1");
-        bidLists[1] = new BidList(2, "account2", "type2", 1.0, 1.0, 1.0, 1.0, "benchmark1", timestamp, "commentary1", "security1", "status1", "trader1", "book1", "creationName1", timestamp, "revisionName1", timestamp, "dealName1", "dealType1", "sourceListId1", "side1");
-        bidLists[2] = new BidList(3, "account3", "type3", 1.0, 1.0, 1.0, 1.0, "benchmark1", timestamp, "commentary1", "security1", "status1", "trader1", "book1", "creationName1", timestamp, "revisionName1", timestamp, "dealName1", "dealType1", "sourceListId1", "side1");
+        bidLists[0] = new BidList(1, "account1", "type1", 1.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        bidLists[1] = new BidList(2, "account2", "type2", 1.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        bidLists[2] = new BidList(3, "account3", "type3", 1.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
         bidListRepository.saveAll(Arrays.asList(bidLists));
 
         CurvePoint[] curvePoints = new CurvePoint[3];
-        curvePoints[0] = new CurvePoint(1, 1, timestamp, 1.0, 1.0, timestamp);
-        curvePoints[1] = new CurvePoint(2, 2, timestamp, 2.0, 2.0, timestamp);
-        curvePoints[2] = new CurvePoint(3, 3, timestamp, 3.0, 3.0, timestamp);
+        curvePoints[0] = new CurvePoint(1, null, null, 1.0, 1.0, null);
+        curvePoints[1] = new CurvePoint(2, null, null, 2.0, 2.0, null);
+        curvePoints[2] = new CurvePoint(3, null, null, 3.0, 3.0, null);
         curvePointRepository.saveAll(Arrays.asList(curvePoints));
 
         RuleName[] ruleNames = new RuleName[3];
@@ -45,15 +41,15 @@ public class DBDataInitializerApp{
         ruleNameRepository.saveAll(Arrays.asList(ruleNames));
 
         Trade[] trades = new Trade[3];
-        trades[0] = new Trade(1, "account1", "type1", 1.0, 1.0, 1.0, 1.0, "benchmark1", timestamp, "security1", "status1", "trader1", "book1", "creationName1", timestamp, "revisionName1", timestamp, "dealName1", "dealType1", "sourceListId1", "side1");
-        trades[1] = new Trade(2, "account2", "type2", 2.0, 2.0, 2.0, 2.0, "benchmark2", timestamp, "security2", "status2", "trader2", "book2", "creationName2", timestamp, "revisionName2", timestamp, "dealName2", "dealType2", "sourceListId2", "side2");
-        trades[2] = new Trade(3, "account3", "type3", 3.0, 3.0, 3.0, 3.0, "benchmark3", timestamp, "security3", "status3", "trader3", "book3", "creationName3", timestamp, "revisionName3", timestamp, "dealName3", "dealType3", "sourceListId3", "side3");
+        trades[0] = new Trade(1, "account1", "type1", 1.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        trades[1] = new Trade(2, "account2", "type2", 2.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        trades[2] = new Trade(3, "account3", "type3", 3.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
         tradeRepository.saveAll(Arrays.asList(trades));
 
         User[] users = new User[3];
-        users[0] = new User(1, "tom", "pass1", "tomName","admin");
-        users[1] = new User(2, "jack", "pass2", "jackName", "user");
-        users[2] = new User(3, "lily", "pass3", "lilyName", "admin");
+        users[0] = new User(1, "user1", "pass1", "user1Name", "admin");
+        users[1] = new User(2, "user2", "pass2", "user2Name", "user");
+        users[2] = new User(3, "user3", "pass3", "user3Name", "admin");
         userRepository.saveAll(Arrays.asList(users));
     }
 }

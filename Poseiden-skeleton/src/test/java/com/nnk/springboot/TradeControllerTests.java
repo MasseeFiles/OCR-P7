@@ -2,6 +2,7 @@ package com.nnk.springboot;
 
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.domain.Trade;
+import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.services.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,12 @@ public class TradeControllerTests {
     private MockMvc mockMvc;
 
     @MockBean
+    private UserRepository userRepository;
+
+    @MockBean
     private TradeService tradeService;
-    @MockBean   //mock necessaire pour creer le contexte du test (pas autowire)
+
+    @MockBean
     private RatingService ratingService;
 
     @MockBean

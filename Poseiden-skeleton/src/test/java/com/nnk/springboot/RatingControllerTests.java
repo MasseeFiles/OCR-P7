@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -51,10 +52,22 @@ public class RatingControllerTests {
     @Test
 //    @WithMockUser(username = "userEmail1")  // a ajouter apres config de spring security
     void home_shouldReturnViewAndModelUpdated() throws Exception {
+        //GIVEN
+        List<Rating> ratingsTest = new ArrayList<>();
+
+        Rating rating1 = new Rating(1, "AA", "BB", "CC", 1);
+        Rating rating2 = new Rating(2, "AA", "BB", "CC", 1);
+        ratingsTest.add(rating1);
+        ratingsTest.add(rating2);
+        
+        when(ratingService.findAll()).thenReturn(ratingsTest);
+
+        //WHEN
         MvcResult result =
                 mockMvc.perform(MockMvcRequestBuilders    //methode perform sert à envoyer la request lors du test
                                 .get("/rating/list")
                         )
+        //THEN
                         .andExpect(MockMvcResultMatchers
                                 .status().isOk())
                         .andExpect(MockMvcResultMatchers
@@ -64,18 +77,8 @@ public class RatingControllerTests {
                         .andReturn();
 
         ObjectMapper mapper = new ObjectMapper();
-
         List<Rating> listActual = (List<Rating>)result.getModelAndView().getModel().get("ratings");
-//        System.out.println(result.getModelAndView().getModel().get("ratings"));
-        assertEquals(listActual.size(),3);
-
-//                .andExpect(MockMvcResultMatchers
-//                        .model().getAttribute
-
-        //TODO : verifier type (list)     /// alternative : essayer ace and return
-//                .andExpect(MockMvcResultMatchers
-//                        .model().attribute("ratings", null).isInstanceOf(List.class);
-
+        assertEquals(listActual.size(),2);
     }
 
     @Test

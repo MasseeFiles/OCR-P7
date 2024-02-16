@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 @RequiredArgsConstructor
 @Controller
 public class HomeController {
@@ -24,7 +25,7 @@ public class HomeController {
 
         logger.info("Requete pour l'affichage de la page Home - role Admin");
 
-        return "redirect:/bidList/list";
+        return "redirect:/user/list";
 	}
 
 

@@ -1,5 +1,6 @@
 package com.nnk.springboot;
 
+import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.services.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 public class HomeControllerTests {
     @Autowired
     private MockMvc mockMvc;
+
+    @MockBean
+    private UserRepository userRepository;
 
     @MockBean
     private TradeService tradeService;

@@ -1,6 +1,7 @@
 package com.nnk.springboot;
 
 import com.nnk.springboot.domain.CurvePoint;
+import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.services.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,12 @@ public class CurvePointControllerTests {
     private MockMvc mockMvc;
 
     @MockBean
+    private UserRepository userRepository;
+
+    @MockBean
     private CurvePointService curvePointService;
-    @MockBean   //mock necessaire pour creer le contexte du test (pas autowire)
+
+    @MockBean
     private RatingService ratingService;
 
     @MockBean

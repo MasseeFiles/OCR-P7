@@ -58,9 +58,9 @@ public class DBDataInitializerTest {
         tradeRepository.saveAll(Arrays.asList(trades));
 
         User[] users = new User[3];
-        users[0] = new User(1, "tom", "pass1", "tomName", "admin");
-        users[1] = new User(2, "jack", "pass2", "jackName", "user");
-        users[2] = new User(3, "lily", "pass3", "lilyName", "admin");
+        users[0] = new User(1, "user1", "pass1", "user1Name", "admin");
+        users[1] = new User(2, "user2", "pass2", "user2Name", "user");
+        users[2] = new User(3, "user3", "pass3", "user3Name", "admin");
         userRepository.saveAll(Arrays.asList(users));
 
         return new DBDataInitializerTest();

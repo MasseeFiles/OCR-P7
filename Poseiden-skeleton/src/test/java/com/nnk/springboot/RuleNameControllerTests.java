@@ -1,6 +1,7 @@
 package com.nnk.springboot;
 
 import com.nnk.springboot.domain.RuleName;
+import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.services.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ import static org.mockito.Mockito.when;
 public class RuleNameControllerTests {
     @Autowired
     private MockMvc mockMvc;
+
+    @MockBean
+    private UserRepository userRepository;
 
     @MockBean
     private RuleService ruleNameService;
