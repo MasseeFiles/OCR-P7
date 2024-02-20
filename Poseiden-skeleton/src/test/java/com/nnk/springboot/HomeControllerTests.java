@@ -57,6 +57,6 @@ public class HomeControllerTests {
                 .andExpect(MockMvcResultMatchers
                         .status().is3xxRedirection())
                 .andExpect(MockMvcResultMatchers
-                        .view().name("redirect:/bidList/list"));
+                        .view().name("redirect:/user/list"));
     }
 }

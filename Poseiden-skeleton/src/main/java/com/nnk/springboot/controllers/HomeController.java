@@ -15,7 +15,7 @@ public class HomeController {
     @RequestMapping("/")
 	public String home(Model model)	{
 
-        logger.info("Requete pour l'affichage de la page Home - role User");
+        logger.info("Requete pour l'affichage de la page Home");
 
         return "home";
 	}
