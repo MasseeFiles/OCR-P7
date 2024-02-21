@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
     private static final Logger logger = LogManager.getLogger("HomeController");
 
-    @RequestMapping("/")
+    @RequestMapping("/home")
 	public String home(Model model)	{
 
         logger.info("Requete pour l'affichage de la page Home");

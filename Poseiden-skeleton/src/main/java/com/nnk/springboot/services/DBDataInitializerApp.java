@@ -47,9 +47,9 @@ public class DBDataInitializerApp{
         tradeRepository.saveAll(Arrays.asList(trades));
 
         User[] users = new User[3];
-        users[0] = new User(1, "user1", "pass1", "user1Name", "admin");
-        users[1] = new User(2, "user2", "pass2", "user2Name", "user");
-        users[2] = new User(3, "user3", "pass3", "user3Name", "admin");
+        users[0] = new User(1, "$2a$13$QGfAAoop7XWzLWtyyq1TLOMv1QxuCF6UvYAJ1tm7Bouhf8nSkNI7C", "pass1", "user1Name", "admin"); //pass1
+        users[1] = new User(2, "$2a$13$3/y9/R1yUOhlSxLcJYSJq.b5xPTFvvUSdgnwmD4HLjAerfCzR2VG2", "pass2", "user2Name", "user");  //pass2
+        users[2] = new User(3, "$2a$13$/znlFV16H/zgKISufdjUCuIk346ieiYtMxL8.bzNs5.V5PyDJuzJq", "pass3", "user3Name", "admin");     //pass3
         userRepository.saveAll(Arrays.asList(users));
     }
 }
