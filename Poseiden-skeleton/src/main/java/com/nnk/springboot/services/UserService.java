@@ -1,18 +1,17 @@
 package com.nnk.springboot.services;
 
-import com.nnk.springboot.domain.User;
-import org.springframework.stereotype.Service;
+import com.nnk.springboot.domain.UserApp;
 
 import java.util.List;
 
 public interface UserService {
-    List<User> findAll();
+    List<UserApp> findAll();
 
-    User findById(Integer id);
+    UserApp findById(Integer id);
 
-    void add(User user);
+    void add(UserApp userApp);
 
-    void update(User user);
+    void update(UserApp userApp);
 
     void delete(Integer id);
 }

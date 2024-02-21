@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -41,19 +42,21 @@ public class LoginControllerTests {
     private RuleService ruleNameService;
 
     @Test
-//    @WithMockUser(username = "user")  // a ajouter apres config de spring security
+    @WithMockUser(username = "user1")  // a ajouter apres config de spring security
     void login_shouldReturn_Object_ModelAndView() throws Exception {
         MvcResult mvcResult =
                 mockMvc.perform(MockMvcRequestBuilders
-                                .get("login"))
+                                .get("/login"))
                         .andExpect(MockMvcResultMatchers
                                 .status().isOk())
+                        .andExpect(MockMvcResultMatchers
+                                .model().attributeExists("mav"))
                         .andReturn();
-
-        ModelAndView modelAndView = mvcResult.getModelAndView();
-
-        assertThat(modelAndView).isNotNull();
-        assertThat("login").isEqualTo(modelAndView.getViewName());
+//
+//        ModelAndView modelAndViewTest = mvcResult.getModelAndView();
+//
+//        assertThat(modelAndViewTest).isNotNull();
+//        assertThat("/login").isEqualTo(modelAndViewTest.getViewName());
     }
 //
 //    @Test

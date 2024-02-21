@@ -1,6 +1,6 @@
 package com.nnk.springboot;
 
-import com.nnk.springboot.domain.User;
+import com.nnk.springboot.domain.UserApp;
 import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.services.UserService;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +17,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-public class UserServiceTests {
+public class UserAppServiceTests {
     @Autowired
     private UserService userService;
     @Mock
@@ -31,21 +31,21 @@ public class UserServiceTests {
     @Test
     void findById_Ok() {
         //GIVEN
-        User userExpected = new User();
-        userExpected.setUserId(1);
-        userExpected.setUserName("tom");
-        userExpected.setPassword("pass1");
-        userExpected.setFullName("tomName");
-        userExpected.setRole("admin");
+        UserApp userAppExpected = new UserApp();
+        userAppExpected.setUserId(1);
+        userAppExpected.setUserName("tom");
+        userAppExpected.setPassword("pass1");
+        userAppExpected.setFullName("tomName");
+        userAppExpected.setRole("admin");
 
-        when(userRepository.findById(1)).thenReturn(Optional.of(userExpected));
+        when(userRepository.findById(1)).thenReturn(Optional.of(userAppExpected));
 
         //WHEN
-        User userActual = userService.findById(1);
+        UserApp userAppActual = userService.findById(1);
 
         //THEN
-        assertThat(userExpected).usingRecursiveComparison()
-                .isEqualTo(userActual);
+        assertThat(userAppExpected).usingRecursiveComparison()
+                .isEqualTo(userAppActual);
     }
 
     @Test
@@ -60,23 +60,23 @@ public class UserServiceTests {
             userService.findById(idNotInDb);
         })
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("User not found : Id used 10");
+                .hasMessageContaining("UserApp not found : Id used 10");
     }
 
     @Test
     void update_User_Not_Found() {
         //GIVEN
-        User userNotInDB = new User();
-        userNotInDB.setUserId(100);
+        UserApp userAppNotInDB = new UserApp();
+        userAppNotInDB.setUserId(100);
 
         //WHEN
 
         //THEN
         assertThatThrownBy(() -> {
-            userService.update(userNotInDB);
+            userService.update(userAppNotInDB);
         })
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("User to update not found : Id used 100");
+                .hasMessageContaining("UserApp to update not found : Id used 100");
     }
 
     @Test
@@ -91,7 +91,7 @@ public class UserServiceTests {
             userService.delete(idNotInDb);
         })
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("User to delete not found : Id used 100");
+                .hasMessageContaining("UserApp to delete not found : Id used 100");
     }
 }
 

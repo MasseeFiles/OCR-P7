@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
 @WebMvcTest
-public class UserControllerTests {
+public class UserAppControllerTests {
     @Autowired
     private MockMvc mockMvc;
 
@@ -91,7 +91,7 @@ public class UserControllerTests {
                         .param("userId", "100")
                 ))
                 .hasCauseInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("User provided is not valid - Id used : 100");
+                .hasMessageContaining("UserApp provided is not valid - Id used : 100");
     }
 
     @Test

@@ -57,11 +57,11 @@ public class DBDataInitializerTest {
         trades[2] = new Trade(3, "account3", "type3", 3.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
         tradeRepository.saveAll(Arrays.asList(trades));
 
-        User[] users = new User[3];
-        users[0] = new User(1, "user1", "$2a$13$QGfAAoop7XWzLWtyyq1TLOMv1QxuCF6UvYAJ1tm7Bouhf8nSkNI7C", "user1Name", "admin");
-        users[1] = new User(2, "user2", "$2a$13$3/y9/R1yUOhlSxLcJYSJq.b5xPTFvvUSdgnwmD4HLjAerfCzR2VG2", "user2Name", "user");
-        users[2] = new User(3, "user3", "$2a$13$/znlFV16H/zgKISufdjUCuIk346ieiYtMxL8.bzNs5.V5PyDJuzJq", "user3Name", "admin");
-        userRepository.saveAll(Arrays.asList(users));
+        UserApp[] userApps = new UserApp[3];
+        userApps[0] = new UserApp(1, "user1", "$2a$13$QGfAAoop7XWzLWtyyq1TLOMv1QxuCF6UvYAJ1tm7Bouhf8nSkNI7C", "user1FullName", "admin");
+        userApps[1] = new UserApp(2, "user2", "$2a$13$3/y9/R1yUOhlSxLcJYSJq.b5xPTFvvUSdgnwmD4HLjAerfCzR2VG2", "user2FullName", "user");
+        userApps[2] = new UserApp(3, "user3", "$2a$13$/znlFV16H/zgKISufdjUCuIk346ieiYtMxL8.bzNs5.V5PyDJuzJq", "user3FullName", "admin");
+        userRepository.saveAll(Arrays.asList(userApps));
 
         return new DBDataInitializerTest();
     }

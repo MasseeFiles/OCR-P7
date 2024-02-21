@@ -1,6 +1,6 @@
 package com.nnk.springboot.services;
 
-import com.nnk.springboot.domain.User;
+import com.nnk.springboot.domain.UserApp;
 import com.nnk.springboot.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,38 +13,38 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public List<User> findAll() {
+    public List<UserApp> findAll() {
         return userRepository.findAll();
     }
 
     @Override
-    public User findById(Integer id) {
-        User userToFind = userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("User not found : Id used " + id));
+    public UserApp findById(Integer id) {
+        UserApp userAppToFind = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("UserApp not found : Id used " + id));
 
-        return userToFind;
+        return userAppToFind;
     }
 
     @Override
-    public void add(User user) {
-        userRepository.save(user);
+    public void add(UserApp userApp) {
+        userRepository.save(userApp);
     }
 
     @Override
-    public void update(User user) {
-        User userToUpdate = userRepository.findById(user.getUserId())
-                .orElseThrow(() -> new IllegalArgumentException("User to update not found : Id used " + user.getUserId()));
+    public void update(UserApp userApp) {
+        UserApp userAppToUpdate = userRepository.findById(userApp.getUserId())
+                .orElseThrow(() -> new IllegalArgumentException("UserApp to update not found : Id used " + userApp.getUserId()));
 
-        userRepository.delete(userToUpdate);
+        userRepository.delete(userAppToUpdate);
 
-        userRepository.save(user);
+        userRepository.save(userApp);
     }
 
     @Override
     public void delete(Integer id) {
-        User userToDelete = userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("User to delete not found : Id used " + id));
+        UserApp userAppToDelete = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("UserApp to delete not found : Id used " + id));
 
-        userRepository.delete(userToDelete);
+        userRepository.delete(userAppToDelete);
     }
 }

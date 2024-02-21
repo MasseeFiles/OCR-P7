@@ -4,7 +4,6 @@ import com.nnk.springboot.domain.*;
 import com.nnk.springboot.repositories.*;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
 import java.util.Arrays;
 
 @Service
@@ -46,10 +45,10 @@ public class DBDataInitializerApp{
         trades[2] = new Trade(3, "account3", "type3", 3.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
         tradeRepository.saveAll(Arrays.asList(trades));
 
-        User[] users = new User[3];
-        users[0] = new User(1, "$2a$13$QGfAAoop7XWzLWtyyq1TLOMv1QxuCF6UvYAJ1tm7Bouhf8nSkNI7C", "pass1", "user1Name", "admin"); //pass1
-        users[1] = new User(2, "$2a$13$3/y9/R1yUOhlSxLcJYSJq.b5xPTFvvUSdgnwmD4HLjAerfCzR2VG2", "pass2", "user2Name", "user");  //pass2
-        users[2] = new User(3, "$2a$13$/znlFV16H/zgKISufdjUCuIk346ieiYtMxL8.bzNs5.V5PyDJuzJq", "pass3", "user3Name", "admin");     //pass3
-        userRepository.saveAll(Arrays.asList(users));
+        UserApp[] userApps = new UserApp[3];
+        userApps[0] = new UserApp(1, "userName1", "$2a$13$QGfAAoop7XWzLWtyyq1TLOMv1QxuCF6UvYAJ1tm7Bouhf8nSkNI7C", "user1FullName", "admin"); //pass1
+        userApps[1] = new UserApp(2, "userName2", "$2a$13$3/y9/R1yUOhlSxLcJYSJq.b5xPTFvvUSdgnwmD4HLjAerfCzR2VG2", "user2FullName", "user");  //pass2
+        userApps[2] = new UserApp(3, "userName3", "$2a$13$/znlFV16H/zgKISufdjUCuIk346ieiYtMxL8.bzNs5.V5PyDJuzJq", "user3FullName", "admin");     //pass3
+        userRepository.saveAll(Arrays.asList(userApps));
     }
 }

@@ -1,7 +1,6 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.domain.User;
-import com.nnk.springboot.repositories.UserRepository;
+import com.nnk.springboot.domain.UserApp;
 import com.nnk.springboot.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
@@ -34,35 +33,35 @@ public class UserController {
         return "user/list";
     }
 
-    @GetMapping("/user/add")
-    public String addUserForm(User user) {
+    @GetMapping("/userApp/add")
+    public String addUserForm(UserApp userApp) {
 
-        logger.info("Requete pour l'affichage du formulaire d'ajout d'un user");
+        logger.info("Requete pour l'affichage du formulaire d'ajout d'un userApp");
 
-        return "user/add";
+        return "userApp/add";
     }
 
-    @PostMapping("/user/validate")
+    @PostMapping("/userApp/validate")
     public String validate(
-            @Valid User user,
+            @Valid UserApp userApp,
             BindingResult result,
             Model model
     ) {
 
-        logger.info("Requete pour la validation et sauvegarde d'un nouveau user");
+        logger.info("Requete pour la validation et sauvegarde d'un nouveau userApp");
 
         if (result.hasErrors()) {
-            throw new IllegalArgumentException("User provided is not valid - Id used : " + user.getUserId());
+            throw new IllegalArgumentException("UserApp provided is not valid - Id used : " + userApp.getUserId());
         } else {
             //TODO : A utiliser apres mise en place de Spring Security
 //            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//            user.setPassword(encoder.encode(user.getPassword()));
+//            userApp.setPassword(encoder.encode(userApp.getPassword()));
 
-            userService.add(user);
+            userService.add(userApp);
             model.addAttribute("users", userService.findAll());
         }
-        return "redirect:/user/list";
-        //        return "user/add";
+        return "redirect:/userApp/list";
+        //        return "userApp/add";
 
     }
 
@@ -71,36 +70,36 @@ public class UserController {
 
         logger.info("Requete pour l'affichage du formulaire d'update d'un user");
 
-        User userToSearch = userService.findById(id);
+        UserApp userAppToSearch = userService.findById(id);
 //                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
 
-        userToSearch.setPassword("");
-        model.addAttribute("user", userToSearch);
+        userAppToSearch.setPassword("");
+        model.addAttribute("user", userAppToSearch);
         return "user/update";
     }
 
-    @PostMapping("/user/update/{id}")
+    @PostMapping("/userApp/update/{id}")
     public String updateUser(
             @PathVariable("id") Integer id,
-            @Valid User user,
+            @Valid UserApp userApp,
             BindingResult result,
             Model model
     ) {
 
         if (result.hasErrors()) {
-            throw new IllegalArgumentException("User provided is not valid - Id used : " + user.getUserId());
+            throw new IllegalArgumentException("UserApp provided is not valid - Id used : " + userApp.getUserId());
         } else {
 //TODO : A utiliser apres mise en place de Spring Security - a mettre dans le service???
 //        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//        user.setPassword(encoder.encode(user.getPassword()));
+//        userApp.setPassword(encoder.encode(userApp.getPassword()));
 
-//        user.setPassword(user.getPassword());
-//        user.setUserId(id);
-//        userRepository.save(user);
+//        userApp.setPassword(userApp.getPassword());
+//        userApp.setUserId(id);
+//        userRepository.save(userApp);
 
-        userService.update(user);
+        userService.update(userApp);
 //        model.addAttribute("users", userService.findAll());
-        return "redirect:/user/list";
+        return "redirect:/userApp/list";
         }
     }
 
