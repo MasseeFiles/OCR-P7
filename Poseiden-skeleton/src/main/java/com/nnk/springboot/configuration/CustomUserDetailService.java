@@ -26,16 +26,18 @@ public class CustomUserDetailService implements UserDetailsService {
             UserDetails userDetails = User.builder()        //classe User de springSecurity differente de classe User du domain
                     .username(userFound.getUserName())
                     .password(userFound.getPassword())
-                    .roles(getRoles(userFound))
+                    .roles(userFound.getRole())
+//                    .roles(getRoles(userFound))
                     .build();
 
             return userDetails;
 
         } else {
-            throw new UsernameNotFoundException("User not found in DB - UserName used : " + username );
+            throw new UsernameNotFoundException("User not found in DB - UserName used : " + username);
         }
     }
-    private String getRoles(UserApp userApp){
+
+    private String getRoles(UserApp userApp) {
         return userApp.getRole();
 
     }

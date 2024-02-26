@@ -1,5 +1,6 @@
 package com.nnk.springboot.controllers;
 
+import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.domain.UserApp;
 import com.nnk.springboot.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -16,11 +17,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.util.List;
+
 @RequiredArgsConstructor
 @Controller
 public class UserController {
     private static final Logger logger = LogManager.getLogger("UserController");
-
     @Autowired
     private UserService userService;
 
@@ -29,19 +31,20 @@ public class UserController {
 
         logger.info("Requete pour la recherche de tous les users");
 
-        model.addAttribute("users", userService.findAll());
+        List<UserApp> userApps = userService.findAll();
+        model.addAttribute("userApps", userService.findAll());
         return "user/list";
     }
 
-    @GetMapping("/userApp/add")
+    @GetMapping("/user/add")
     public String addUserForm(UserApp userApp) {
 
         logger.info("Requete pour l'affichage du formulaire d'ajout d'un userApp");
 
-        return "userApp/add";
+        return "user/add";
     }
 
-    @PostMapping("/userApp/validate")
+    @PostMapping("/user/validate")
     public String validate(
             @Valid UserApp userApp,
             BindingResult result,
@@ -60,7 +63,7 @@ public class UserController {
             userService.add(userApp);
             model.addAttribute("users", userService.findAll());
         }
-        return "redirect:/userApp/list";
+        return "redirect:/user/list";
         //        return "userApp/add";
 
     }
@@ -71,14 +74,13 @@ public class UserController {
         logger.info("Requete pour l'affichage du formulaire d'update d'un user");
 
         UserApp userAppToSearch = userService.findById(id);
-//                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
 
         userAppToSearch.setPassword("");
-        model.addAttribute("user", userAppToSearch);
+        model.addAttribute("userApp", userAppToSearch);
         return "user/update";
     }
 
-    @PostMapping("/userApp/update/{id}")
+    @PostMapping("/user/update/{id}")
     public String updateUser(
             @PathVariable("id") Integer id,
             @Valid UserApp userApp,
@@ -99,7 +101,7 @@ public class UserController {
 
         userService.update(userApp);
 //        model.addAttribute("users", userService.findAll());
-        return "redirect:/userApp/list";
+        return "redirect:/user/list";
         }
     }
 

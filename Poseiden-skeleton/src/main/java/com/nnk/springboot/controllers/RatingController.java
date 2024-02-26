@@ -43,7 +43,7 @@ public class RatingController {
         return "rating/add";
     }
 
-    @PostMapping("/rating/validate")   //CREATE
+    @PostMapping("/rating/validate")   //verification avant sauvegarde en BDD (fin de procedure pour requete ADD ou UPDATE°
     public String validate(
             @Valid Rating rating,
             BindingResult result,   //objet pour enregistrer les erreurs de validation

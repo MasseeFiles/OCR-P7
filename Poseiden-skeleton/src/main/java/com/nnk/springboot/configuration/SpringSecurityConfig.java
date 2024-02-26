@@ -14,7 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityConfig {
-    //penser à effacer historique de navigation avant de lancer appli pouir spring security
+    //penser à effacer historique de navigation avant de lancer appli pour spring security
     //login et logout implementés par defaut par spring
 
     @Autowired
@@ -25,6 +25,7 @@ public class SpringSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity    //ordre des requestMatchers IMPORTANT!!!
+//                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((requests) -> requests   //AUTHORISATIONS
                         .requestMatchers("/home").permitAll()   //acces a l'appli
                         .requestMatchers("/user/**").hasRole("admin")   //partie uniquement accessible à utilisateur admin
@@ -43,11 +44,8 @@ public class SpringSecurityConfig {
         return httpSecurity.build();
     }
 
-    @Bean
-    public UserDetailsService userDetailsService() {     //implementé par CustomUserDetailsService
-        return userDetailsService;
-    }
-
+    //AuthenticationProvider permet de configurer la procedure d'authentification
+    //AuthenticationProvider est ici implementé par DaoAuthenticationProvider qui permet de configurer le userDetails et le passwordEncoder
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -56,21 +54,20 @@ public class SpringSecurityConfig {
         return provider;
     }
 
+    //methode pour definir le userDetailService à utiliser par SpringSecurity
+    //Interface implementée dans classe CustomUserDetailService
+    //UserDetailservice sert à indiquer à SpringSecurity ou chercher les infos d'un userApp qui veut s'identifier (repository, bdd à utiliser, type de données à cherhcer...)
+    @Bean
+    public UserDetailsService userDetailsService() {     //implementé par CustomUserDetailsService
+        return userDetailsService;
+    }
+
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    //    @Autowired
-//    void configureGlobal(DataSource projectDataBase, AuthenticationManagerBuilder auth) throws Exception {  //parametre auth permet de configurer le mechanisme d'authentification - configuration d'un filtre particulier
-//        auth.jdbcAuthentication()   //methode particuliere pour authentification via une bdd (JDBC - Java Database Connectivity).
-//                .dataSource(projectDataBase)
-//                .usersByUsernameQuery("SELECT user_name , password , true FROM user WHERE user_name = ?")
-//                .authoritiesByUsernameQuery("SELECT user_name , 'role' , true FROM user WHERE user_name = ?")
-//        ;
-//    }
-
-
+// création d'un userApp en memoire  (pas dans BDD)
 //    @Bean
 //    public UserDetailsService userDetailsService() {      // creétioan d'unuser en memeoire  (pas dans BDD)
 //        UserDetails userDetails = User.builder()
