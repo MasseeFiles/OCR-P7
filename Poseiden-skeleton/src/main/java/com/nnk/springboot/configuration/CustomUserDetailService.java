@@ -27,7 +27,7 @@ public class CustomUserDetailService implements UserDetailsService {
                     .username(userFound.getUserName())
                     .password(userFound.getPassword())
                     .roles(userFound.getRole())
-//                    .roles(getRoles(userFound))
+// TODO : supprimer si .roles(userFound.getRole())  ok                   .roles(getRoles(userFound))
                     .build();
 
             return userDetails;

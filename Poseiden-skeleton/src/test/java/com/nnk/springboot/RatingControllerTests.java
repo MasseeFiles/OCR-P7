@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -50,17 +51,17 @@ public class RatingControllerTests {
     private RuleService ruleNameService;
 
     @Test
-//    @WithMockUser(username = "userEmail1")  // a ajouter apres config de spring security
+    @WithMockUser(username = "userEmail1")
     void home_shouldReturnViewAndModelUpdated() throws Exception {
-        //GIVEN
-        List<Rating> ratingsTest = new ArrayList<>();
-
-        Rating rating1 = new Rating(1, "AA", "BB", "CC", 1);
-        Rating rating2 = new Rating(2, "AA", "BB", "CC", 1);
-        ratingsTest.add(rating1);
-        ratingsTest.add(rating2);
-        
-        when(ratingService.findAll()).thenReturn(ratingsTest);
+//        //GIVEN
+//        List<Rating> ratingsTest = new ArrayList<>();
+//
+//        Rating rating1 = new Rating(1, "AA", "BB", "CC", 1);
+//        Rating rating2 = new Rating(2, "AA", "BB", "CC", 1);
+//        ratingsTest.add(rating1);
+//        ratingsTest.add(rating2);
+//
+//        when(ratingService.findAll()).thenReturn(ratingsTest);
 
         //WHEN
         MvcResult result =
@@ -82,7 +83,7 @@ public class RatingControllerTests {
     }
 
     @Test
-//    @WithMockUser - a ajouter apres configuration spring security
+    @WithMockUser(username = "userEmail1")
     void addRatingForm_shouldReturnView() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/rating/add")
@@ -94,7 +95,7 @@ public class RatingControllerTests {
     }
 
     @Test
-//    @WithMockUser - a ajouter apres configuration spring security
+    @WithMockUser(username = "userEmail1")
     void validate_shouldReturnViewRedirect() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders    //methode perform sert à envoyer la request lors du test
                         .post("/rating/validate")
@@ -111,7 +112,7 @@ public class RatingControllerTests {
     }
 
     @Test
-//    @WithMockUser - a ajouter apres configuration spring security
+    @WithMockUser(username = "userEmail1")
     void validate_shouldThrowIllegalArgumentException() throws Exception {
         assertThatThrownBy(
                 () -> mockMvc.perform(MockMvcRequestBuilders
@@ -123,7 +124,7 @@ public class RatingControllerTests {
     }
 
     @Test
-//    @WithMockUser - a ajouter apres configuration spring security
+    @WithMockUser(username = "userEmail1")
     void showUpdateForm_shouldReturnView() throws Exception {
         //GIVEN
         Rating ratingTest = new Rating();
@@ -144,7 +145,7 @@ public class RatingControllerTests {
     }
 
     @Test
-//    @WithMockUser - a ajouter apres configuration spring security
+    @WithMockUser(username = "userEmail1")
     void updateRating_shouldReturnView_Redirect() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/rating/update/1")
@@ -160,7 +161,7 @@ public class RatingControllerTests {
     }
 
     @Test
-//    @WithMockUser - a ajouter apres configuration spring security
+    @WithMockUser(username = "userEmail1")
     void updateRating_shouldThrowIllegalArgumentException() throws Exception {
         assertThatThrownBy(
                 () -> mockMvc.perform(MockMvcRequestBuilders
@@ -172,7 +173,7 @@ public class RatingControllerTests {
     }
 
     @Test
-//    @WithMockUser - a ajouter apres configuration spring security
+    @WithMockUser(username = "userEmail1")
     void deleteRating_shouldReturnView_Redirect() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/rating/delete/1")

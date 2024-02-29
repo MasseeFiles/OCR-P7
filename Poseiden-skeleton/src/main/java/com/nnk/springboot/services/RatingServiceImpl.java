@@ -34,12 +34,8 @@ public class RatingServiceImpl implements RatingService {
         Rating ratingToUpdate = ratingRepository.findById(rating.getRatingId())
                 .orElseThrow(() -> new IllegalArgumentException("Rating to update not found : Id used " + rating.getRatingId()));
 
-        ratingToUpdate.setMoodysRating(rating.getMoodysRating());
-        ratingToUpdate.setSandPRating(rating.getSandPRating());
-        ratingToUpdate.setFitchRating(rating.getFitchRating());
-        ratingToUpdate.setOrderNumber(rating.getOrderNumber());
-
-        ratingRepository.save(ratingToUpdate);
+        ratingRepository.delete(ratingToUpdate);
+        ratingRepository.save(rating);
     }
 
     @Override

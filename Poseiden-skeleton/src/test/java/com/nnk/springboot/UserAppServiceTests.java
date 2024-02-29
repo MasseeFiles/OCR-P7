@@ -1,5 +1,6 @@
 package com.nnk.springboot;
 
+import com.nnk.springboot.configuration.SpringSecurityConfig;
 import com.nnk.springboot.domain.UserApp;
 import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.services.UserService;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Optional;
 
@@ -32,10 +34,11 @@ public class UserAppServiceTests {
     void findById_Ok() {
         //GIVEN
         UserApp userAppExpected = new UserApp();
+
         userAppExpected.setUserId(1);
-        userAppExpected.setUserName("tom");
-        userAppExpected.setPassword("pass1");
-        userAppExpected.setFullName("tomName");
+        userAppExpected.setUserName("user1");
+        userAppExpected.setPassword("$2a$13$QGfAAoop7XWzLWtyyq1TLOMv1QxuCF6UvYAJ1tm7Bouhf8nSkNI7C");
+        userAppExpected.setFullName("user1FullName");
         userAppExpected.setRole("admin");
 
         when(userRepository.findById(1)).thenReturn(Optional.of(userAppExpected));

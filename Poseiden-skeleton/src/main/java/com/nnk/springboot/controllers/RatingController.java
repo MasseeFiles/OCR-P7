@@ -2,6 +2,7 @@ package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.services.RatingService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,7 +30,6 @@ public class RatingController {
     public String home(Model model) {
 
         logger.info("Requete pour la recherche de tous les ratings");
-
         List<Rating> ratings = ratingService.findAll();
         model.addAttribute("ratings", ratings);
         return "rating/list";
@@ -43,7 +43,7 @@ public class RatingController {
         return "rating/add";
     }
 
-    @PostMapping("/rating/validate")   //verification avant sauvegarde en BDD (fin de procedure pour requete ADD ou UPDATE°
+    @PostMapping("/rating/validate")   //verification avant sauvegarde en BDD (fin de procedure pour requete ADD)
     public String validate(
             @Valid Rating rating,
             BindingResult result,   //objet pour enregistrer les erreurs de validation
@@ -53,7 +53,7 @@ public class RatingController {
         logger.info("Requete pour la validation et sauvegarde d'un nouveau rating"); //ajouter un id??
 
         if (result.hasErrors()) {
-            throw new IllegalArgumentException("Rating provided is not valid - Id used : " + rating.getRatingId());
+            return "/rating/add";
         } else {
             ratingService.add(rating);
         }
@@ -81,7 +81,7 @@ public class RatingController {
         logger.info("Requete pour l'update d'un rating");
 
         if (result.hasErrors()) {
-            throw new IllegalArgumentException("Rating provided is not valid - Id used : " + rating.getRatingId());
+            return "rating/update";
         } else {
             ratingService.update(rating);
         }

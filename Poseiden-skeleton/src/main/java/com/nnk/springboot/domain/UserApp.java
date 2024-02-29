@@ -1,7 +1,13 @@
 package com.nnk.springboot.domain;
 
-import jakarta.persistence.*;
+//import com.nnk.springboot.configuration.ValidPassword;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,13 +24,14 @@ public class UserApp {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer userId;
 
-    @NotBlank(message = "UserApp name is mandatory")
+    @NotBlank(message = "User name is mandatory")
     private String userName;
 
     @NotBlank(message = "Password is mandatory")
+    @Pattern(regexp = "^(?=.*\\d)(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$" , message = "Password strength is too low : please use at least 8 characters, one capital letter, one digit and one special character")
     private String password;
 
-    @NotBlank(message = "FullName is mandatory")
+    @NotBlank(message = "Full name is mandatory")
     private String fullName;
 
     @NotBlank(message = "Role is mandatory")

@@ -24,6 +24,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
                 response.sendRedirect("/bidList/list");
                 return;
             }
+//            request.setAttribute();
         }
         // Default redirect
 //            response.sendRedirect("/default");

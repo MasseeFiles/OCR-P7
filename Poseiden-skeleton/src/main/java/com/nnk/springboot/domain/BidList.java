@@ -1,9 +1,11 @@
 package com.nnk.springboot.domain;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import lombok.*;
+import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.sql.Timestamp;
 
@@ -25,6 +27,8 @@ public class BidList {
     private String type;
 
     @NotNull(message = "Bid quantity cannot be blank")
+    @DecimalMax("100000.00")
+    @DecimalMin("0.00")
     private Double bidQuantity;
 
     private Double askQuantity;

@@ -52,7 +52,7 @@ public class TradeController {
         logger.info("Requete pour la validation et sauvegarde d'un nouveau trade");
 
         if (result.hasErrors()) {
-            throw new IllegalArgumentException("Trade provided is not valid - Id used : " + trade.getTradeId());
+            return "/trade/add";
         } else {
             tradeService.add(trade);
         }
@@ -80,7 +80,7 @@ public class TradeController {
         logger.info("Requete pour l'update d'un trade");
 
         if (result.hasErrors()) {
-            throw new IllegalArgumentException("Trade provided is not valid - Id used : " + trade.getTradeId());
+            return "trade/update";
         } else {
             tradeService.update(trade);
         }

@@ -16,16 +16,16 @@ public class DBDataInitializerApp{
                                 UserRepository userRepository
     ) {
         Rating[] ratings = new Rating[3];
-        ratings[0] = new Rating(1, "AA", "BB", "CC", 1);
-        ratings[1] = new Rating(2, "DD", "EE", "FF", 2);
-        ratings[2] = new Rating(3, "GG", "HH", "II", 3);
+        ratings[0] = new Rating(1, "1", "1", "1", 1);
+        ratings[1] = new Rating(2, "2", "2", "2", 2);
+        ratings[2] = new Rating(3, "3", "3", "3", 3);
         ratingRepository.saveAll(Arrays.asList(ratings));
 
-        BidList[] bidLists = new BidList[3];
-        bidLists[0] = new BidList(1, "account1", "type1", 1.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-        bidLists[1] = new BidList(2, "account2", "type2", 1.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-        bidLists[2] = new BidList(3, "account3", "type3", 1.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-        bidListRepository.saveAll(Arrays.asList(bidLists));
+//        BidList[] bidLists = new BidList[3];
+//        bidLists[0] = new BidList(1, "account1", "type1", 1.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+//        bidLists[1] = new BidList(2, "account2", "type2", 1.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+//        bidLists[2] = new BidList(3, "account3", "type3", 1.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+//        bidListRepository.saveAll(Arrays.asList(bidLists));
 
         CurvePoint[] curvePoints = new CurvePoint[3];
         curvePoints[0] = new CurvePoint(1, null, null, 1.0, 1.0, null);
@@ -46,9 +46,9 @@ public class DBDataInitializerApp{
         tradeRepository.saveAll(Arrays.asList(trades));
 
         UserApp[] userApps = new UserApp[3];
-        userApps[0] = new UserApp(1, "userName1", "$2a$13$QGfAAoop7XWzLWtyyq1TLOMv1QxuCF6UvYAJ1tm7Bouhf8nSkNI7C", "user1FullName", "admin"); //pass1
-        userApps[1] = new UserApp(2, "userName2", "$2a$13$3/y9/R1yUOhlSxLcJYSJq.b5xPTFvvUSdgnwmD4HLjAerfCzR2VG2", "user2FullName", "user");  //pass2
-        userApps[2] = new UserApp(3, "userName3", "$2a$13$/znlFV16H/zgKISufdjUCuIk346ieiYtMxL8.bzNs5.V5PyDJuzJq", "user3FullName", "admin");     //pass3
+        userApps[0] = new UserApp(1, "userName1", "$2a$12$95Zhh9nJJuY7sbEmu998OunbSZJGIp3JGx3UfPsXq3Jh2XXWNFs/C", "user1FullName", "admin"); //Pass = a
+        userApps[1] = new UserApp(2, "userName2", "$2a$12$95Zhh9nJJuY7sbEmu998OunbSZJGIp3JGx3UfPsXq3Jh2XXWNFs/C", "user2FullName", "user");
+        userApps[2] = new UserApp(3, "userName3", "$2a$12$95Zhh9nJJuY7sbEmu998OunbSZJGIp3JGx3UfPsXq3Jh2XXWNFs/C", "user3FullName", "admin");
         userRepository.saveAll(Arrays.asList(userApps));
     }
 }

@@ -27,6 +27,4 @@ public class HomeController {
 
         return "redirect:/user/list";
 	}
-
-
 }

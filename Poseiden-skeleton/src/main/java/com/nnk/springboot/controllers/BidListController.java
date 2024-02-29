@@ -52,7 +52,7 @@ public class BidListController {
         logger.info("Requete pour la validation et sauvegarde d'une nouvelle bidList");
 
         if (result.hasErrors()) {
-            throw new IllegalArgumentException("BidList provided is not valid - Id used : " + bidList.getId());
+            return "/bidList/add";
         } else {
             bidListService.add(bidList);
         }
@@ -80,7 +80,7 @@ public class BidListController {
         logger.info("Requete pour l'update d'un bidList");
 
         if (result.hasErrors()) {
-            throw new IllegalArgumentException("BidList provided is not valid - Id used : " + bidList.getId());
+            return "/bidList/update";
         } else {
             bidListService.update(bidList);
         }

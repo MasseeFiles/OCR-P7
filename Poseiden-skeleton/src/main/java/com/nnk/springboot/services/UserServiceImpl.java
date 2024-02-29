@@ -36,7 +36,6 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new IllegalArgumentException("UserApp to update not found : Id used " + userApp.getUserId()));
 
         userRepository.delete(userAppToUpdate);
-
         userRepository.save(userApp);
     }
 

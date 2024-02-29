@@ -4,10 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 @Getter
@@ -27,6 +26,8 @@ public class Trade {
     private String type;
 
     @NotNull(message = "Buy quantity cannot be blank")
+    @DecimalMax("100000.00")
+    @DecimalMin("0.00")
     private Double buyQuantity;
 
     private Double sellQuantity;

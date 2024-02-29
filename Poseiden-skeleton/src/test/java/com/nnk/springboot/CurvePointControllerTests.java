@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -41,7 +42,7 @@ public class CurvePointControllerTests {
     private RuleService ruleNameService;
 
     @Test
-//    @WithMockUser(username = "userEmail1")  // a ajouter apres config de spring security
+    @WithMockUser(username = "userEmail1")
     void home_shouldReturnViewAndModelUpdated() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders    //methode perform sert à envoyer la request lors du test
                         .get("/curvePoint/list")
@@ -55,7 +56,7 @@ public class CurvePointControllerTests {
     }
 
     @Test
-//    @WithMockUser - a ajouter apres configuration spring security
+    @WithMockUser(username = "userEmail1")
     void addRatingForm_shouldReturnView() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/curvePoint/add")
@@ -67,7 +68,7 @@ public class CurvePointControllerTests {
     }
 
     @Test
-//    @WithMockUser - a ajouter apres configuration spring security
+    @WithMockUser(username = "userEmail1")
     void validate_shouldReturnViewRedirect() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/curvePoint/validate")
@@ -82,7 +83,7 @@ public class CurvePointControllerTests {
     }
 
     @Test
-//    @WithMockUser - a ajouter apres configuration spring security
+    @WithMockUser(username = "userEmail1")
     void validate_shouldThrowIllegalArgumentException() throws Exception {
         assertThatThrownBy(
                 () -> mockMvc.perform(MockMvcRequestBuilders
@@ -94,7 +95,7 @@ public class CurvePointControllerTests {
     }
 
     @Test
-//    @WithMockUser - a ajouter apres configuration spring security
+    @WithMockUser(username = "userEmail1")
     void showUpdateForm_shouldReturnView() throws Exception {
         //GIVEN
         CurvePoint curvePointTest = new CurvePoint();
@@ -115,7 +116,7 @@ public class CurvePointControllerTests {
     }
 
     @Test
-//    @WithMockUser - a ajouter apres configuration spring security
+    @WithMockUser(username = "userEmail1")
     void updateCurvePoint_shouldReturnView_Redirect() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/curvePoint/update/1")
@@ -129,7 +130,7 @@ public class CurvePointControllerTests {
     }
 
     @Test
-//    @WithMockUser - a ajouter apres configuration spring security
+    @WithMockUser(username = "userEmail1")
     void updateCurvePoint_shouldThrowIllegalArgumentException() throws Exception {
         assertThatThrownBy(
                 () -> mockMvc.perform(MockMvcRequestBuilders
@@ -141,7 +142,7 @@ public class CurvePointControllerTests {
     }
 
     @Test
-//    @WithMockUser - a ajouter apres configuration spring security
+    @WithMockUser(username = "userEmail1")
     void deleteCurvePoint_shouldReturnView_Redirect() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/curvePoint/delete/1")

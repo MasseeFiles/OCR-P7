@@ -4,8 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,6 +30,8 @@ public class Rating {
     @NotBlank(message = "FitchRating cannot be blank")
     private String fitchRating;
 
-    @NotNull(message = "OrderNumber cannot be blank")  // annotation de validation plus large que @NotBlank
+    @NotNull(message = "Order number cannot be blank")// annotation de validation plus large que @NotBlank
+    @Max(100000)
+    @Min(0)
     private Integer orderNumber;
 }

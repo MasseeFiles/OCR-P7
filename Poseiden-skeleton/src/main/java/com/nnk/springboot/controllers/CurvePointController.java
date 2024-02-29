@@ -52,7 +52,7 @@ public class CurvePointController {
         logger.info("Requete pour la validation et sauvegarde d'un nouveau curvePoint");
 
         if (result.hasErrors()) {
-            throw new IllegalArgumentException("CurvePoint provided is not valid - Id used : " + curvePoint.getId());
+            return "/curvePoint/add";
         } else {
             curvePointService.add(curvePoint);
         }
@@ -80,7 +80,7 @@ public class CurvePointController {
         logger.info("Requete pour l'update d'un curvePoint");
 
         if (result.hasErrors()) {
-            throw new IllegalArgumentException("CurvePoint provided is not valid - Id used : " + curvePoint.getId());
+            return "curvePoint/update";
         } else {
             curvePointService.update(curvePoint);
         }

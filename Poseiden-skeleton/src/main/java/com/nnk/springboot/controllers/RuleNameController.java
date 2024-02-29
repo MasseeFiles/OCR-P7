@@ -53,7 +53,7 @@ public class RuleNameController {
         logger.info("Requete pour la validation et sauvegarde d'une nouvelle rule");
 
         if (result.hasErrors()) {
-            throw new IllegalArgumentException("RuleName provided is not valid - Id used : " + ruleName.getRuleId());
+            return "/ruleName/add";
         } else {
             ruleService.add(ruleName);
         }
@@ -78,8 +78,10 @@ public class RuleNameController {
             Model mode
     ) {
 
+        logger.info("Requete pour l'update d'un ruleName");
+
         if (result.hasErrors()) {
-            throw new IllegalArgumentException("RuleName provided is not valid - Id used : " + ruleName.getRuleId());
+            return "ruleName/update";
         } else {
             ruleService.add(ruleName);
         }

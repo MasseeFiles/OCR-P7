@@ -7,8 +7,11 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -28,6 +31,7 @@ public class SpringSecurityConfig {
 //                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((requests) -> requests   //AUTHORISATIONS
                         .requestMatchers("/home").permitAll()   //acces a l'appli
+                        .requestMatchers("/userApp-logout").permitAll()   //logout
                         .requestMatchers("/user/**").hasRole("admin")   //partie uniquement accessible à utilisateur admin
                         .requestMatchers("/bidList/**").authenticated()
                         .requestMatchers("/curvePoint/**").authenticated()
@@ -72,7 +76,7 @@ public class SpringSecurityConfig {
 //    public UserDetailsService userDetailsService() {      // creétioan d'unuser en memeoire  (pas dans BDD)
 //        UserDetails userDetails = User.builder()
 //                .username("u")
-//                .password("$2a$13$nkQiKy98XqzWyywjCU9J3urCxRTBZN8..3fv.g4LsyoVtX2bp0dXu")
+//                .password("$2a$12$bXaAltyyonTxFDt2kJijcO0mYninZlMS4VzZe.PinSCrNfjB.LY6S")
 //                .roles("admin")
 //                .build();
 //
