@@ -37,7 +37,7 @@ public class UserAppServiceTests {
 
         userAppExpected.setUserId(1);
         userAppExpected.setUserName("user1");
-        userAppExpected.setPassword("$2a$13$QGfAAoop7XWzLWtyyq1TLOMv1QxuCF6UvYAJ1tm7Bouhf8nSkNI7C");
+        userAppExpected.setPassword("$2a$12$9M0ZJtiyAmaY7LV3HZ4GwuX3l9JyAKCRQUegsyMJgOwFRqYmREpfO");
         userAppExpected.setFullName("user1FullName");
         userAppExpected.setRole("admin");
 

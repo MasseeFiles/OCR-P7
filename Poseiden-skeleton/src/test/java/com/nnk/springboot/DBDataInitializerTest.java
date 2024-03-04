@@ -58,9 +58,9 @@ public class DBDataInitializerTest {
         tradeRepository.saveAll(Arrays.asList(trades));
 
         UserApp[] userApps = new UserApp[3];
-        userApps[0] = new UserApp(1, "user1", "$2a$13$3NCtQK6iXRU/9B4R660bx./RSHQ6yBNagqzCS7rXSBF6izzhlpf5a", "user1FullName", "admin");
-        userApps[1] = new UserApp(2, "user2", "$2a$13$3NCtQK6iXRU/9B4R660bx./RSHQ6yBNagqzCS7rXSBF6izzhlpf5a", "user2FullName", "user");
-        userApps[2] = new UserApp(3, "user3", "$2a$13$3NCtQK6iXRU/9B4R660bx./RSHQ6yBNagqzCS7rXSBF6izzhlpf5a", "user3FullName", "admin");
+        userApps[0] = new UserApp(1, "user1", "$2a$12$9M0ZJtiyAmaY7LV3HZ4GwuX3l9JyAKCRQUegsyMJgOwFRqYmREpfO", "user1FullName", "admin"); //Password
+        userApps[1] = new UserApp(2, "user2", "$2a$12$9M0ZJtiyAmaY7LV3HZ4GwuX3l9JyAKCRQUegsyMJgOwFRqYmREpfO", "user2FullName", "user");
+        userApps[2] = new UserApp(3, "user3", "$2a$12$9M0ZJtiyAmaY7LV3HZ4GwuX3l9JyAKCRQUegsyMJgOwFRqYmREpfO", "user3FullName", "admin");
         userRepository.saveAll(Arrays.asList(userApps));
 
         return new DBDataInitializerTest();

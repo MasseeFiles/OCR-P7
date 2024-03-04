@@ -15,11 +15,11 @@ public class DBDataInitializerApp{
                                 TradeRepository tradeRepository,
                                 UserRepository userRepository
     ) {
-        Rating[] ratings = new Rating[3];
-        ratings[0] = new Rating(1, "1", "1", "1", 1);
-        ratings[1] = new Rating(2, "2", "2", "2", 2);
-        ratings[2] = new Rating(3, "3", "3", "3", 3);
-        ratingRepository.saveAll(Arrays.asList(ratings));
+//        Rating[] ratings = new Rating[3];
+//        ratings[0] = new Rating(1, "1", "1", "1", 1);
+//        ratings[1] = new Rating(2, "2", "2", "2", 2);
+//        ratings[2] = new Rating(3, "3", "3", "3", 3);
+//        ratingRepository.saveAll(Arrays.asList(ratings));
 
 //        BidList[] bidLists = new BidList[3];
 //        bidLists[0] = new BidList(1, "account1", "type1", 1.0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
@@ -46,9 +46,9 @@ public class DBDataInitializerApp{
         tradeRepository.saveAll(Arrays.asList(trades));
 
         UserApp[] userApps = new UserApp[3];
-        userApps[0] = new UserApp(1, "userName1", "$2a$12$95Zhh9nJJuY7sbEmu998OunbSZJGIp3JGx3UfPsXq3Jh2XXWNFs/C", "user1FullName", "admin"); //Pass = a
-        userApps[1] = new UserApp(2, "userName2", "$2a$12$95Zhh9nJJuY7sbEmu998OunbSZJGIp3JGx3UfPsXq3Jh2XXWNFs/C", "user2FullName", "user");
-        userApps[2] = new UserApp(3, "userName3", "$2a$12$95Zhh9nJJuY7sbEmu998OunbSZJGIp3JGx3UfPsXq3Jh2XXWNFs/C", "user3FullName", "admin");
+        userApps[0] = new UserApp(1, "userName1", "$2a$12$2NljUmASdUls6s8BtEUTtOkQOjtkiFBCX/IOOtoxcYECq4kplgJVO", "user1FullName", "admin"); //Pass = a
+        userApps[1] = new UserApp(2, "userName2", "$2a$12$2NljUmASdUls6s8BtEUTtOkQOjtkiFBCX/IOOtoxcYECq4kplgJVO", "user2FullName", "user");
+        userApps[2] = new UserApp(3, "userName3", "$2a$12$2NljUmASdUls6s8BtEUTtOkQOjtkiFBCX/IOOtoxcYECq4kplgJVO", "user3FullName", "admin");
         userRepository.saveAll(Arrays.asList(userApps));
     }
 }

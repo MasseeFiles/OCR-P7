@@ -42,9 +42,9 @@ public class BidListController {
         return "bidList/add";
     }
 
-    @PostMapping("/bidList/validate")   //CREATE
+    @PostMapping("/bidList/validate")
     public String validate(
-            @Valid BidList bidList,         //@Valid : annotation SpringBoot permettant de verifier les contraintes sur objet BID (Bean Validation provider - Hibernate Validator)
+            @Valid BidList bidList,
             BindingResult result,
             Model model
     ) {
@@ -52,7 +52,7 @@ public class BidListController {
         logger.info("Requete pour la validation et sauvegarde d'une nouvelle bidList");
 
         if (result.hasErrors()) {
-            return "/bidList/add";
+            return "bidList/add";
         } else {
             bidListService.add(bidList);
         }
@@ -80,7 +80,7 @@ public class BidListController {
         logger.info("Requete pour l'update d'un bidList");
 
         if (result.hasErrors()) {
-            return "/bidList/update";
+            return "bidList/update";
         } else {
             bidListService.update(bidList);
         }

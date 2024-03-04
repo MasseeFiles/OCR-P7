@@ -18,7 +18,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-//@Table(name = "user")
 public class UserApp {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,7 +27,7 @@ public class UserApp {
     private String userName;
 
     @NotBlank(message = "Password is mandatory")
-    @Pattern(regexp = "^(?=.*\\d)(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$" , message = "Password strength is too low : please use at least 8 characters, one capital letter, one digit and one special character")
+    @Pattern(regexp = "^(?=.*\\d)(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$", message = "Password strength is too low : please use at least 8 characters, one capital letter, one digit and one special character")
     private String password;
 
     @NotBlank(message = "Full name is mandatory")

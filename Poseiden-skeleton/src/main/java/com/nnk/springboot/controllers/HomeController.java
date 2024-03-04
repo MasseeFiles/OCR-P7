@@ -19,12 +19,4 @@ public class HomeController {
 
         return "home";
 	}
-
-	@RequestMapping("/admin/home")
-	public String adminHome(Model model) {
-
-        logger.info("Requete pour l'affichage de la page Home - role Admin");
-
-        return "redirect:/user/list";
-	}
 }

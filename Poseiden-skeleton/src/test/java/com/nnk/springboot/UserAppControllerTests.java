@@ -1,6 +1,7 @@
 package com.nnk.springboot;
 
 import com.nnk.springboot.domain.Rating;
+import com.nnk.springboot.domain.UserApp;
 import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.services.*;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
 @WebMvcTest
 public class UserAppControllerTests {
@@ -43,7 +45,7 @@ public class UserAppControllerTests {
     @Test
     @WithMockUser(username = "userEmail1")
     void home_shouldReturnViewAndModelUpdated() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders    //methode perform sert à envoyer la request lors du test
+        mockMvc.perform(MockMvcRequestBuilders
                         .get("/user/list")
                 )
                 .andExpect(MockMvcResultMatchers
@@ -51,12 +53,12 @@ public class UserAppControllerTests {
                 .andExpect(MockMvcResultMatchers
                         .view().name("user/list"))
                 .andExpect(MockMvcResultMatchers
-                        .model().attributeExists("users"));
+                        .model().attributeExists("userApps"));
     }
 
     @Test
     @WithMockUser(username = "userEmail1")
-    void addUserForm_shouldReturnView() throws Exception {
+    void addUserForm_shouldReturnFormView() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/user/add")
                 )
@@ -68,14 +70,15 @@ public class UserAppControllerTests {
 
     @Test
     @WithMockUser(username = "userEmail1")
-    void validate_shouldReturnViewRedirect() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders    //methode perform sert à envoyer la request lors du test
+    void validate_shouldReturnRedirectView() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
                         .post("/user/validate")
-                        .param("userId", "1")
-                        .param("userName", "1")
-                        .param("password", "1")
-                        .param("fullName", "1")
+//                        .param("userId", "1")
+                        .param("userName", "userName1")
+                        .param("password", "Pass123!")
+                        .param("fullName", "userFullName1")
                         .param("role", "admin")
+                        .with(csrf())
                 )
                 .andExpect(MockMvcResultMatchers
                         .status().is3xxRedirection())
@@ -85,46 +88,49 @@ public class UserAppControllerTests {
 
     @Test
     @WithMockUser(username = "userEmail1")
-    void validate_shouldThrowIllegalArgumentException() throws Exception {
-        assertThatThrownBy(
-                () -> mockMvc.perform(MockMvcRequestBuilders
-                        .post("/user/validate")
-                        .param("userId", "100")
-                ))
-                .hasCauseInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("UserApp provided is not valid - Id used : 100");
-    }
+    void validate_shouldReturnFormView() throws Exception {
+            mockMvc.perform(MockMvcRequestBuilders
+                            .post("/user/validate")
+                            .param("id", "100")
+                            .with(csrf())
+                    )
+                    .andExpect(MockMvcResultMatchers
+                            .status().isOk())
+                    .andExpect(MockMvcResultMatchers
+                            .view().name("user/add"));
+        }
 
     @Test
     @WithMockUser(username = "userEmail1")
     void showUpdateForm_shouldReturnView() throws Exception {
         //GIVEN
-        Rating ratingTest = new Rating();
-        when(ratingService.findById(1)).thenReturn(ratingTest);
+        UserApp userAppTest = new UserApp();
+        when(userService.findById(1)).thenReturn(userAppTest);
 
         //WHEN
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/rating/update/1")
+                        .get("/user/update/1")
                 )
 
         //THEN
                 .andExpect(MockMvcResultMatchers
                         .status().isOk())
                 .andExpect(MockMvcResultMatchers
-                        .view().name("rating/update"))
+                        .view().name("user/update"))
                 .andExpect(MockMvcResultMatchers
-                        .model().attributeExists("rating"));
+                        .model().attributeExists("userApp"));
     }
 
     @Test
     @WithMockUser(username = "userEmail1")
-    void updateUser_shouldReturnView_Redirect() throws Exception {
+    void updateUser_shouldReturnRedirectView() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/user/update/1")
                         .param("userName", "1")
-                        .param("password", "1")
+                        .param("password", "Pass123!")
                         .param("fullName", "1")
                         .param("role", "admin")
+                        .with(csrf())
                 )
                 .andExpect(MockMvcResultMatchers
                         .status().is3xxRedirection())
@@ -134,26 +140,28 @@ public class UserAppControllerTests {
 
     @Test
     @WithMockUser(username = "userEmail1")
-    void updateRating_shouldThrowIllegalArgumentException() throws Exception {
-        assertThatThrownBy(
-                () -> mockMvc.perform(MockMvcRequestBuilders
-                        .post("/rating/update/1")
-                        .param("ratingId", "1") //exception car certains attributs à valider sont absents
-                ))
-                .hasCauseInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("Rating provided is not valid - Id used : 1");
+    void updateUser_shouldReturnFormView() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                        .post("/user/update/1")
+                        .param("id", "1")
+                        .with(csrf())
+                )
+                .andExpect(MockMvcResultMatchers
+                        .status().isOk())
+                .andExpect(MockMvcResultMatchers
+                        .view().name("user/update"));
     }
 
     @Test
     @WithMockUser(username = "userEmail1")
-    void deleteRating_shouldReturnView_Redirect() throws Exception {
+    void deleteUserApp_shouldReturnRedirectView() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/rating/delete/1")
+                        .get("/user/delete/1")
                 )
                 .andExpect(MockMvcResultMatchers
                         .status().is3xxRedirection())
                 .andExpect(MockMvcResultMatchers
-                        .view().name("redirect:/rating/list")
+                        .view().name("redirect:/user/list")
                 );
     }
 }

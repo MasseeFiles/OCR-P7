@@ -1,6 +1,5 @@
 package com.nnk.springboot;
 
-import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.services.*;
@@ -13,8 +12,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
 @WebMvcTest
 public class TradeControllerTests {
@@ -58,7 +57,7 @@ public class TradeControllerTests {
 
     @Test
     @WithMockUser(username = "userEmail1")
-    void addTradeForm_shouldReturnView() throws Exception {
+    void addTradeForm_shouldReturnFormView() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/trade/add")
                 )
@@ -70,13 +69,14 @@ public class TradeControllerTests {
 
     @Test
     @WithMockUser(username = "userEmail1")
-    void validate_shouldReturnViewRedirect() throws Exception {
+    void validate_shouldReturnRedirectView() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders    //methode perform sert à envoyer la request lors du test
                         .post("/trade/validate")
                         .param("tradeId", "1")
                         .param("account", "1")
                         .param("type", "1")
                         .param("buyQuantity", "1")
+                        .with(csrf())
                 )
                 .andExpect(MockMvcResultMatchers
                         .status().is3xxRedirection())
@@ -86,14 +86,16 @@ public class TradeControllerTests {
 
     @Test
     @WithMockUser(username = "userEmail1")
-    void validate_shouldThrowIllegalArgumentException() throws Exception {
-        assertThatThrownBy(
-                () -> mockMvc.perform(MockMvcRequestBuilders
+    void validate_shouldReturnFormView() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
                         .post("/trade/validate")
-                        .param("tradeId", "100")
-                ))
-                .hasCauseInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("Trade provided is not valid - Id used : 100");
+                        .param("id", "100")
+                        .with(csrf())
+                )
+                .andExpect(MockMvcResultMatchers
+                        .status().isOk())
+                .andExpect(MockMvcResultMatchers
+                        .view().name("trade/add"));
     }
 
     @Test
@@ -119,13 +121,14 @@ public class TradeControllerTests {
 
     @Test
     @WithMockUser(username = "userEmail1")
-    void updateTrade_shouldReturnView_Redirect() throws Exception {
+    void updateTrade_shouldReturnRedirectView() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/trade/update/1")
                         .param("tradeId", "1")
                         .param("account", "1")
                         .param("type", "1")
                         .param("buyQuantity", "1")
+                        .with(csrf())
                 )
                 .andExpect(MockMvcResultMatchers
                         .status().is3xxRedirection())
@@ -135,19 +138,21 @@ public class TradeControllerTests {
 
     @Test
     @WithMockUser(username = "userEmail1")
-    void updateTrade_shouldThrowIllegalArgumentException() throws Exception {
-        assertThatThrownBy(
-                () -> mockMvc.perform(MockMvcRequestBuilders
+    void updateTrade_shouldReturnFormView() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
                         .post("/trade/update/1")
-                        .param("tradeId", "1")
-                ))
-                .hasCauseInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("Trade provided is not valid - Id used : 1");
+                        .param("id", "1")
+                        .with(csrf())
+                )
+                .andExpect(MockMvcResultMatchers
+                        .status().isOk())
+                .andExpect(MockMvcResultMatchers
+                        .view().name("trade/update"));
     }
 
     @Test
     @WithMockUser(username = "userEmail1")
-    void deleteRating_shouldReturnView_Redirect() throws Exception {
+    void deleteRating_shouldReturnRedirectView() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/trade/delete/1")
                 )

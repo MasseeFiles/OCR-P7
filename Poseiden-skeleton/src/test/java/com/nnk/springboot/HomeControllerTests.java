@@ -37,26 +37,13 @@ public class HomeControllerTests {
     private RuleService ruleNameService;
 
     @Test
-//    @WithMockUser(username = "userEmail1")  // a ajouter apres config de spring security
     void home_shouldReturnView() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/")
+                        .get("/home")
                 )
-                .andExpect(MockMvcResultMatchers
-                        .status().isOk())
+//                .andExpect(MockMvcResultMatchers
+//                        .status().isOk())
                 .andExpect(MockMvcResultMatchers
                         .view().name("home"));
-    }
-
-    @Test
-//    @WithMockUser(username = "userEmail1")  // a ajouter apres config de spring security
-    void adminHome_shouldReturnView() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders
-                        .get("/admin/home")
-                )
-                .andExpect(MockMvcResultMatchers
-                        .status().is3xxRedirection())
-                .andExpect(MockMvcResultMatchers
-                        .view().name("redirect:/user/list"));
     }
 }

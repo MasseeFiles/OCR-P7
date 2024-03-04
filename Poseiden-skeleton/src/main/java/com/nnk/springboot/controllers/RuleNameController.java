@@ -48,12 +48,13 @@ public class RuleNameController {
     public String validate(
             @Valid RuleName ruleName,
             BindingResult result,
-            Model model) {
+            Model model
+    ) {
 
         logger.info("Requete pour la validation et sauvegarde d'une nouvelle rule");
 
         if (result.hasErrors()) {
-            return "/ruleName/add";
+            return "ruleName/add";
         } else {
             ruleService.add(ruleName);
         }

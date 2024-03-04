@@ -12,8 +12,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
 @WebMvcTest
 public class RuleNameControllerTests {
@@ -25,7 +25,7 @@ public class RuleNameControllerTests {
 
     @MockBean
     private RuleService ruleNameService;
-    @MockBean   //mock necessaire pour creer le contexte du test (pas autowire)
+    @MockBean
     private RatingService ratingService;
 
     @MockBean
@@ -69,7 +69,7 @@ public class RuleNameControllerTests {
     @Test
     @WithMockUser(username = "userEmail1")
     void validate_shouldReturnViewRedirect() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders    //methode perform sert à envoyer la request lors du test
+        mockMvc.perform(MockMvcRequestBuilders
                         .post("/ruleName/validate")
                         .param("ruleId", "1")
                         .param("name", "1")
@@ -78,6 +78,7 @@ public class RuleNameControllerTests {
                         .param("template", "1")
                         .param("sqlStr", "1")
                         .param("sqlPart", "1")
+                        .with(csrf())
                 )
                 .andExpect(MockMvcResultMatchers
                         .status().is3xxRedirection())
@@ -87,14 +88,16 @@ public class RuleNameControllerTests {
 
     @Test
     @WithMockUser(username = "userEmail1")
-    void validate_shouldThrowIllegalArgumentException() throws Exception {
-        assertThatThrownBy(
-                () -> mockMvc.perform(MockMvcRequestBuilders
+    void validate_shouldReturnFormView() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
                         .post("/ruleName/validate")
-                        .param("ruleId", "100")
-                ))
-                .hasCauseInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("RuleName provided is not valid - Id used : 100");
+                        .param("id", "100")
+                        .with(csrf())
+                )
+                .andExpect(MockMvcResultMatchers
+                        .status().isOk())
+                .andExpect(MockMvcResultMatchers
+                        .view().name("ruleName/add"));
     }
 
     @Test
@@ -108,7 +111,6 @@ public class RuleNameControllerTests {
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/ruleName/update/1")
                 )
-
         //THEN
                 .andExpect(MockMvcResultMatchers
                         .status().isOk())
@@ -120,7 +122,7 @@ public class RuleNameControllerTests {
 
     @Test
     @WithMockUser(username = "userEmail1")
-    void updateRuleName_shouldReturnView_Redirect() throws Exception {
+    void updateRuleName_shouldRedirectView() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/ruleName/update/1")
                         .param("ruleId", "1")
@@ -130,6 +132,7 @@ public class RuleNameControllerTests {
                         .param("template", "1")
                         .param("sqlStr", "1")
                         .param("sqlPart", "1")
+                        .with(csrf())
                 )
                 .andExpect(MockMvcResultMatchers
                         .status().is3xxRedirection())
@@ -139,14 +142,16 @@ public class RuleNameControllerTests {
 
     @Test
     @WithMockUser(username = "userEmail1")
-    void updateruleName_shouldThrowIllegalArgumentException() throws Exception {
-        assertThatThrownBy(
-                () -> mockMvc.perform(MockMvcRequestBuilders
+    void updateRuleName_shouldReturnFormView() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
                         .post("/ruleName/update/1")
-                        .param("ruleId", "1") //exception car certains attributs à valider sont absents
-                ))
-                .hasCauseInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("RuleName provided is not valid - Id used : 1");
+                        .param("id", "1")
+                        .with(csrf())
+                )
+                .andExpect(MockMvcResultMatchers
+                        .status().isOk())
+                .andExpect(MockMvcResultMatchers
+                        .view().name("ruleName/update"));
     }
 
     @Test

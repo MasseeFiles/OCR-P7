@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
 @WebMvcTest
 class BidListControllerTests {
@@ -25,7 +26,7 @@ class BidListControllerTests {
     @MockBean
     private BidListService bidListService;
 
-    @MockBean   //mock necessaire pour creer le contexte du test (pas autowire)
+    @MockBean
     private RatingService ratingService;
 
     @MockBean
@@ -42,7 +43,6 @@ class BidListControllerTests {
 
     @Test
     @WithMockUser(username = "userEmail1")
-        // a ajouter apres config de spring security
     void home_shouldReturnViewAndModelUpdated() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/bidList/list")
@@ -57,7 +57,7 @@ class BidListControllerTests {
 
     @Test
     @WithMockUser(username = "userEmail1")
-    void addBidForm_shouldReturnView() throws Exception {
+    void addBidForm_shouldReturnFormView() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/bidList/add")
                 )
@@ -69,13 +69,13 @@ class BidListControllerTests {
 
     @Test
     @WithMockUser(username = "userEmail1")
-    void validate_shouldReturnViewRedirect() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders    //methode perform sert à envoyer la request lors du test
+    void validate_shouldReturnRedirectView() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
                         .post("/bidList/validate")
-//                        .param("id", "1")
                         .param("account", "account1")
-                        .param("type", "type1")
+                        .param("type", "type2")
                         .param("bidQuantity", "1.0")
+                        .with(csrf())
                 )
                 .andExpect(MockMvcResultMatchers
                         .status().is3xxRedirection())
@@ -83,30 +83,18 @@ class BidListControllerTests {
                         .view().name("redirect:/bidList/list"));
     }
 
-    //Exemple de test sur renvoi d'exception
-//    @Test
-//    @WithMockUser(username = "userEmail1")
-//    void validate_shouldThrowIllegalArgumentException() throws Exception {
-//        assertThatThrownBy(
-//                () -> mockMvc.perform(MockMvcRequestBuilders
-//                        .post("/bidList/validate")
-//                        .param("id", "100")
-//                ))
-//                .hasCauseInstanceOf(IllegalArgumentException.class)
-//                .hasMessageContaining("BidList provided is not valid - Id used : 100");
-//    }
-
     @Test
     @WithMockUser(username = "userEmail1")
-    void validate_shouldReturnClientError() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders    //methode perform sert à envoyer la request lors du test
+    void validate_shouldReturnFormView() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
                         .post("/bidList/validate")
                         .param("id", "100")
+                        .with(csrf())
                 )
                 .andExpect(MockMvcResultMatchers
-                        .status().is4xxClientError());  //a cause de         return "redirect:/bidList/list"; ???
-//            .andExpect(MockMvcResultMatchers
-//                    .view().name("bidList/add"));
+                        .status().isOk())
+                .andExpect(MockMvcResultMatchers
+                        .view().name("bidList/add"));
     }
 
     @Test
@@ -120,7 +108,6 @@ class BidListControllerTests {
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/bidList/update/1")
                 )
-
         //THEN
                 .andExpect(MockMvcResultMatchers
                         .status().isOk())
@@ -132,12 +119,13 @@ class BidListControllerTests {
 
     @Test
     @WithMockUser(username = "userEmail1")
-    void updateBidList_shouldReturnView_Redirect() throws Exception {
+    void updateBidList_shouldReturnRedirectView() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/bidList/update/1")
                         .param("account", "account1")
                         .param("type", "type1")
                         .param("bidQuantity", "1")
+                        .with(csrf())
                 )
                 .andExpect(MockMvcResultMatchers
                         .status().is3xxRedirection())
@@ -147,20 +135,21 @@ class BidListControllerTests {
 
     @Test
     @WithMockUser(username = "userEmail1")
-    void updateBidList_shouldReturnClientError() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders    //methode perform sert à envoyer la request lors du test
+    void updateBidList_shouldReturnFormView() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
                         .post("/bidList/update/1")
                         .param("id", "1")
+                        .with(csrf())
                 )
                 .andExpect(MockMvcResultMatchers
-                        .status().is4xxClientError());      //clientError en fonction de uri de fin du controller : "redirect:/bidList/list" ???
-//                .andExpect(MockMvcResultMatchers
-//                .view().name("/bidList/update"));
+                        .status().isOk())
+                .andExpect(MockMvcResultMatchers
+                        .view().name("bidList/update"));
     }
 
     @Test
     @WithMockUser(username = "userEmail1")
-    void deleteBid_shouldReturnView_Redirect() throws Exception {
+    void deleteBidList_shouldReturnRedirectView() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/bidList/delete/1")
                 )

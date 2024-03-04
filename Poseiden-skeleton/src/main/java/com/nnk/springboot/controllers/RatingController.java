@@ -45,7 +45,7 @@ public class RatingController {
 
     @PostMapping("/rating/validate")   //verification avant sauvegarde en BDD (fin de procedure pour requete ADD)
     public String validate(
-            @Valid Rating rating,
+            @Valid Rating rating,       //@Valid : annotation SpringBoot permettant de verifier les contraintes sur objet (Bean Validation provider - Hibernate Validator)
             BindingResult result,   //objet pour enregistrer les erreurs de validation
             Model model
     ) {
@@ -53,7 +53,7 @@ public class RatingController {
         logger.info("Requete pour la validation et sauvegarde d'un nouveau rating"); //ajouter un id??
 
         if (result.hasErrors()) {
-            return "/rating/add";
+            return "rating/add";
         } else {
             ratingService.add(rating);
         }

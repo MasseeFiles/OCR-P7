@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
 @WebMvcTest
 public class CurvePointControllerTests {
@@ -69,12 +70,13 @@ public class CurvePointControllerTests {
 
     @Test
     @WithMockUser(username = "userEmail1")
-    void validate_shouldReturnViewRedirect() throws Exception {
+    void validate_shouldReturnRedirectView() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/curvePoint/validate")
                         .param("id", "1")
                         .param("term", "1.0")
                         .param("value", "1.0")
+                        .with(csrf())
                 )
                 .andExpect(MockMvcResultMatchers
                         .status().is3xxRedirection())
@@ -84,14 +86,16 @@ public class CurvePointControllerTests {
 
     @Test
     @WithMockUser(username = "userEmail1")
-    void validate_shouldThrowIllegalArgumentException() throws Exception {
-        assertThatThrownBy(
-                () -> mockMvc.perform(MockMvcRequestBuilders
-                        .post("/curvePoint/validate")
+    void validate_shouldReturnFormView() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders    //methode perform sert à envoyer la request lors du test
+                        .post("/bidList/validate")
                         .param("id", "100")
-                ))
-                .hasCauseInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("CurvePoint provided is not valid - Id used : 100");
+                        .with(csrf())
+                )
+                .andExpect(MockMvcResultMatchers
+                        .status().isOk())
+                .andExpect(MockMvcResultMatchers
+                        .view().name("bidList/add"));
     }
 
     @Test
@@ -117,11 +121,12 @@ public class CurvePointControllerTests {
 
     @Test
     @WithMockUser(username = "userEmail1")
-    void updateCurvePoint_shouldReturnView_Redirect() throws Exception {
+    void updateCurvePoint_shouldReturnRedirectView() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/curvePoint/update/1")
                         .param("term", "1.0")
                         .param("value", "1.0")
+                        .with(csrf())
                 )
                 .andExpect(MockMvcResultMatchers
                         .status().is3xxRedirection())
@@ -131,19 +136,21 @@ public class CurvePointControllerTests {
 
     @Test
     @WithMockUser(username = "userEmail1")
-    void updateCurvePoint_shouldThrowIllegalArgumentException() throws Exception {
-        assertThatThrownBy(
-                () -> mockMvc.perform(MockMvcRequestBuilders
+    void updateCurvePoint_shouldReturnFormView() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders    //methode perform sert à envoyer la request lors du test
                         .post("/curvePoint/update/1")
-                        .param("id", "1") //exception car certains attributs à valider sont absents
-                ))
-                .hasCauseInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("CurvePoint provided is not valid - Id used : 1");
+                        .param("id", "1")
+                        .with(csrf())
+                )
+                .andExpect(MockMvcResultMatchers
+                        .status().isOk())
+                .andExpect(MockMvcResultMatchers
+                        .view().name("curvePoint/update"));
     }
 
     @Test
     @WithMockUser(username = "userEmail1")
-    void deleteCurvePoint_shouldReturnView_Redirect() throws Exception {
+    void deleteCurvePoint_shouldReturnRedirectView() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/curvePoint/delete/1")
                 )

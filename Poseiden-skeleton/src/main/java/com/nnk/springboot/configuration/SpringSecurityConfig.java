@@ -1,10 +1,14 @@
 package com.nnk.springboot.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.authorization.AuthorizationEventPublisher;
+import org.springframework.security.authorization.SpringAuthorizationEventPublisher;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -13,6 +17,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
+
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
@@ -22,8 +29,8 @@ public class SpringSecurityConfig {
 
     @Autowired
     private UserDetailsService userDetailsService;
-    @Autowired
-    private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+//    @Autowired
+//    private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -31,20 +38,23 @@ public class SpringSecurityConfig {
 //                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((requests) -> requests   //AUTHORISATIONS
                         .requestMatchers("/home").permitAll()   //acces a l'appli
-                        .requestMatchers("/userApp-logout").permitAll()   //logout
                         .requestMatchers("/user/**").hasRole("admin")   //partie uniquement accessible à utilisateur admin
                         .requestMatchers("/bidList/**").authenticated()
                         .requestMatchers("/curvePoint/**").authenticated()
                         .requestMatchers("/rating/**").authenticated()
                         .requestMatchers("/ruleName/**").authenticated()
                         .requestMatchers("/trade/**").authenticated()
+                        .anyRequest().authenticated()
                 )
-                .formLogin((form) -> form   //AUTHENTIFICATION
-                                .successHandler(customAuthenticationSuccessHandler)
-//                        .successForwardUrl("/bidList/list").   // definit la page à afficher si authentification ok
-//                        .failureForwardUrl("/rating/list")
-//                        .defaultSuccessUrl("/rating/list")
+                .formLogin(withDefaults()
                 );
+//
+//                .formLogin((form) -> form   //AUTHENTIFICATION
+////                                .successHandler(customAuthenticationSuccessHandler)
+////                        .successForwardUrl("/bidList/list").   // definit la page à afficher si authentification ok
+//                        .failureForwardUrl("/403")
+////                        .defaultSuccessUrl("/rating/list")
+//                );
         return httpSecurity.build();
     }
 
@@ -70,6 +80,19 @@ public class SpringSecurityConfig {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+
+    // bean pour ecouter events (ex: cas d'une authorisation refusée)
+//    @Bean
+//    public AuthorizationEventPublisher authorizationEventPublisher
+//            (ApplicationEventPublisher applicationEventPublisher) {
+//        return new SpringAuthorizationEventPublisher(applicationEventPublisher);
+//    }
+
+//    @Bean
+//    public AccessDeniedHandler accessDeniedHandler() {
+//        return new CustomAccessDeniedHandler();
+//    }
 
 // création d'un userApp en memoire  (pas dans BDD)
 //    @Bean

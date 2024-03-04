@@ -52,7 +52,7 @@ public class TradeController {
         logger.info("Requete pour la validation et sauvegarde d'un nouveau trade");
 
         if (result.hasErrors()) {
-            return "/trade/add";
+            return "trade/add";
         } else {
             tradeService.add(trade);
         }
