@@ -41,23 +41,24 @@ public class LoginControllerTests {
     @MockBean
     private RuleService ruleNameService;
 
-    @Test
-    @WithMockUser(username = "user1")  // a ajouter apres config de spring security
-    void login_shouldReturn_Object_ModelAndView() throws Exception {
-        MvcResult mvcResult =
-                mockMvc.perform(MockMvcRequestBuilders
-                                .get("/login"))
+    //TODO : effacer si pas de controller LOGIN
+//    @Test
+//    @WithMockUser(username = "user1")  // a ajouter apres config de spring security
+//    void login_shouldReturn_Object_ModelAndView() throws Exception {
+//        MvcResult mvcResult =
+//                mockMvc.perform(MockMvcRequestBuilders
+//                                .get("/login"))
 //                        .andExpect(MockMvcResultMatchers
 //                                .status().isOk())
 //                        .andExpect(MockMvcResultMatchers
 //                                .model().attributeExists("mav"))
-                        .andReturn();
+//                        .andReturn();
 
-        ModelAndView modelAndViewTest = mvcResult.getModelAndView();
+//        ModelAndView modelAndViewTest = mvcResult.getModelAndView();
 
-        assertThat(modelAndViewTest).isNotNull();
+//        assertThat(modelAndViewTest).isNotNull();
 //        assertThat("/login").isEqualTo(modelAndViewTest.getViewName());
-    }
+//    }
 //
 //    @Test
 ////    @WithMockUser(username = "user")  // a ajouter apres config de spring security
@@ -74,21 +75,5 @@ public class LoginControllerTests {
 //        assertThat(modelAndView).isNotNull();
 //        assertThat(modelAndView.getModel().containsValue("users"));
 //        assertThat("user/list").isEqualTo(modelAndView.getViewName());
-//    }
-//
-//    @Test
-////    @WithMockUser(username = "user")  // a ajouter apres config de spring security
-//    void error_shouldReturn_ObjectViewAndModel() throws Exception {
-//        MvcResult mvcResult =
-//                mockMvc.perform(MockMvcRequestBuilders
-//                                .get("error"))
-//                        .andExpect(MockMvcResultMatchers
-//                                .status().isOk())
-//                        .andReturn();
-//
-//        ModelAndView modelAndView = mvcResult.getModelAndView();
-//
-//        assertThat(modelAndView).isNotNull();
-//        assertThat("403").isEqualTo(modelAndView.getViewName());
 //    }
 }

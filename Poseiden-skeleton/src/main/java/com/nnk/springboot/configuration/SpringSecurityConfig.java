@@ -35,7 +35,6 @@ public class SpringSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity    //ordre des requestMatchers IMPORTANT!!!
-//                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((requests) -> requests   //AUTHORISATIONS
                         .requestMatchers("/home").permitAll()   //acces a l'appli
                         .requestMatchers("/user/**").hasRole("admin")   //partie uniquement accessible à utilisateur admin
@@ -48,12 +47,12 @@ public class SpringSecurityConfig {
                 )
                 .formLogin(withDefaults()
                 );
-//
+
 //                .formLogin((form) -> form   //AUTHENTIFICATION
-////                                .successHandler(customAuthenticationSuccessHandler)
+////                        .successHandler(customAuthenticationSuccessHandler)
 ////                        .successForwardUrl("/bidList/list").   // definit la page à afficher si authentification ok
-//                        .failureForwardUrl("/403")
-////                        .defaultSuccessUrl("/rating/list")
+//                        .failureForwardUrl("/error")
+////                        .defaultSuccessUrl("/bidList/list")
 //                );
         return httpSecurity.build();
     }
@@ -80,15 +79,7 @@ public class SpringSecurityConfig {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-
-    // bean pour ecouter events (ex: cas d'une authorisation refusée)
-//    @Bean
-//    public AuthorizationEventPublisher authorizationEventPublisher
-//            (ApplicationEventPublisher applicationEventPublisher) {
-//        return new SpringAuthorizationEventPublisher(applicationEventPublisher);
-//    }
-
+}
 //    @Bean
 //    public AccessDeniedHandler accessDeniedHandler() {
 //        return new CustomAccessDeniedHandler();
@@ -107,4 +98,3 @@ public class SpringSecurityConfig {
 //    }
 
 
-}

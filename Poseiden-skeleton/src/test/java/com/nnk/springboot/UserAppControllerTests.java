@@ -24,21 +24,16 @@ public class UserAppControllerTests {
 
     @MockBean
     private UserRepository userRepository;
-
     @MockBean
     private UserService userService;
     @MockBean
     private RatingService ratingService;
-
     @MockBean
     private BidListService bidListService;
-
     @MockBean
     private CurvePointService curvePointService;
-
     @MockBean
     private TradeService tradeService;
-
     @MockBean
     private RuleService ruleNameService;
 
