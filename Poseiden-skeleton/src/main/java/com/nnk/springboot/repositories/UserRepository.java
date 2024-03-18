@@ -10,5 +10,4 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<UserApp, Integer>, JpaSpecificationExecutor<UserApp> {
     Optional<UserApp> findByUserName(String userName);
-
 }

@@ -42,7 +42,7 @@ public class BidList {
 
     private String benchmark;
 
-    private Timestamp bidListDate;      //Timestamp : format particulier de date pour utilisation SQL
+    private Timestamp bidListDate;
 
     private String commentary;
 

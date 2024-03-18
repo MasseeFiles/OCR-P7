@@ -1,6 +1,5 @@
 package com.nnk.springboot;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.repositories.UserRepository;
@@ -18,7 +17,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -28,7 +26,7 @@ public class RatingControllerTests {
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean   //mock necessaire pour creer le contexte du test (pas autowire)
+    @MockBean
     private RatingService ratingService;
 
     @MockBean
@@ -67,7 +65,7 @@ public class RatingControllerTests {
                 mockMvc.perform(MockMvcRequestBuilders
                                 .get("/rating/list")
                         )
-        //THEN
+                        //THEN
                         .andExpect(MockMvcResultMatchers
                                 .status().isOk())
                         .andExpect(MockMvcResultMatchers
@@ -77,8 +75,8 @@ public class RatingControllerTests {
                         .andReturn();
 
         ObjectMapper mapper = new ObjectMapper();
-        List<Rating> listActual = (List<Rating>)result.getModelAndView().getModel().get("ratings");
-        assertEquals(listActual.size(),2);
+        List<Rating> listActual = (List<Rating>) result.getModelAndView().getModel().get("ratings");
+        assertEquals(listActual.size(), 2);
     }
 
     @Test
@@ -96,7 +94,7 @@ public class RatingControllerTests {
     @Test
     @WithMockUser(username = "userEmail1")
     void validate_shouldReturnRedirectView() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders    //methode perform sert à envoyer la request lors du test
+        mockMvc.perform(MockMvcRequestBuilders
                         .post("/rating/validate")
                         .param("ratingId", "1")
                         .param("moodysRating", "1")
@@ -114,7 +112,7 @@ public class RatingControllerTests {
     @Test
     @WithMockUser(username = "userEmail1")
     void validate_shouldReturnFormView() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders    //methode perform sert à envoyer la request lors du test
+        mockMvc.perform(MockMvcRequestBuilders
                         .post("/rating/validate")
                         .param("id", "100")
                         .with(csrf())
@@ -136,7 +134,7 @@ public class RatingControllerTests {
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/rating/update/1")
                 )
-        //THEN
+                //THEN
                 .andExpect(MockMvcResultMatchers
                         .status().isOk())
                 .andExpect(MockMvcResultMatchers

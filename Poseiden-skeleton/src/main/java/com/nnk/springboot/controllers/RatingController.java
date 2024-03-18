@@ -2,11 +2,12 @@ package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.services.RatingService;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,12 +31,18 @@ public class RatingController {
     public String home(Model model) {
 
         logger.info("Requete pour la recherche de tous les ratings");
+
         List<Rating> ratings = ratingService.findAll();
         model.addAttribute("ratings", ratings);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String remoteUserName = authentication.getName();
+        model.addAttribute("remoteUser", remoteUserName);
+
         return "rating/list";
     }
 
-    @GetMapping("/rating/add")  //affichage du formulaire
+    @GetMapping("/rating/add")
     public String addRatingForm(Rating rating) {
 
         logger.info("Requete pour l'affichage du formulaire d'ajout d'un rating");
@@ -43,14 +50,14 @@ public class RatingController {
         return "rating/add";
     }
 
-    @PostMapping("/rating/validate")   //verification avant sauvegarde en BDD (fin de procedure pour requete ADD)
+    @PostMapping("/rating/validate")
     public String validate(
-            @Valid Rating rating,       //@Valid : annotation SpringBoot permettant de verifier les contraintes sur objet (Bean Validation provider - Hibernate Validator)
-            BindingResult result,   //objet pour enregistrer les erreurs de validation
+            @Valid Rating rating,
+            BindingResult result,
             Model model
     ) {
 
-        logger.info("Requete pour la validation et sauvegarde d'un nouveau rating"); //ajouter un id??
+        logger.info("Requete pour la validation et sauvegarde d'un nouveau rating");
 
         if (result.hasErrors()) {
             return "rating/add";
@@ -60,8 +67,8 @@ public class RatingController {
         return "redirect:/rating/list";
     }
 
-    @GetMapping("/rating/update/{id}")  //Affichage du form UPDATE
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {     //pathvariable : generation dynamique du parametre de methode à partir de l'uri du endpoint
+    @GetMapping("/rating/update/{id}")
+    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
 
         logger.info("Requete pour l'affichage du formulaire d'update d'un rating");
 
@@ -70,7 +77,7 @@ public class RatingController {
         return "rating/update";
     }
 
-    @PostMapping("/rating/update/{id}")     //UPDATE
+    @PostMapping("/rating/update/{id}")
     public String updateRating(
             @PathVariable("id") Integer id,
             @Valid Rating rating,
@@ -88,7 +95,7 @@ public class RatingController {
         return "redirect:/rating/list";
     }
 
-    @GetMapping("/rating/delete/{id}")      //DELETE
+    @GetMapping("/rating/delete/{id}")
     public String deleteRating(@PathVariable("id") Integer id, Model model) {
         ratingService.delete(id);
         return "redirect:/rating/list";

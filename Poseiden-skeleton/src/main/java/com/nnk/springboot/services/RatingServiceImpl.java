@@ -20,7 +20,8 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
-    public void add(Rating ratingToAdd) { ratingRepository.save(ratingToAdd);
+    public void add(Rating ratingToAdd) {
+        ratingRepository.save(ratingToAdd);
     }
 
     @Override

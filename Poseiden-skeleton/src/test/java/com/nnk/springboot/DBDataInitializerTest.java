@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 import java.util.Arrays;
 
 @Configuration
-//@Profile("test")
 public class DBDataInitializerTest {
     @Autowired
     RatingRepository ratingRepository;

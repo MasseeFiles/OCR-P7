@@ -1,7 +1,5 @@
 package com.nnk.springboot.domain;
 
-//import com.nnk.springboot.configuration.ValidPassword;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,7 +25,7 @@ public class UserApp {
     private String userName;
 
     @NotBlank(message = "Password is mandatory")
-    @Pattern(regexp = "^(?=.*\\d)(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$", message = "Password strength is too low : please use at least 8 characters, one capital letter, one digit and one special character")
+    @Pattern(regexp = "^(?=.*[!?@#$%^&*])(?=.*[A-Z])(?=.*\\d).{8,}$", message = "Password strength is too low : please use at least 8 characters, one capital letter, one digit and one special character")
     private String password;
 
     @NotBlank(message = "Full name is mandatory")

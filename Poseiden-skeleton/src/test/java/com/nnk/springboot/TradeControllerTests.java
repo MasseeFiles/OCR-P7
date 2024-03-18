@@ -44,7 +44,7 @@ public class TradeControllerTests {
     @Test
     @WithMockUser(username = "userEmail1")
     void home_shouldReturnViewAndModelUpdated() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders    //methode perform sert à envoyer la request lors du test
+        mockMvc.perform(MockMvcRequestBuilders
                         .get("/trade/list")
                 )
                 .andExpect(MockMvcResultMatchers
@@ -70,7 +70,7 @@ public class TradeControllerTests {
     @Test
     @WithMockUser(username = "userEmail1")
     void validate_shouldReturnRedirectView() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders    //methode perform sert à envoyer la request lors du test
+        mockMvc.perform(MockMvcRequestBuilders
                         .post("/trade/validate")
                         .param("tradeId", "1")
                         .param("account", "1")
@@ -110,7 +110,7 @@ public class TradeControllerTests {
                         .get("/trade/update/1")
                 )
 
-        //THEN
+                //THEN
                 .andExpect(MockMvcResultMatchers
                         .status().isOk())
                 .andExpect(MockMvcResultMatchers

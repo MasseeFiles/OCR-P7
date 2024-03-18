@@ -45,6 +45,5 @@ public class ErrorControllerImplTests {
         ModelAndView modelAndViewTest = mvcResult.getModelAndView();
         assertThat(modelAndViewTest).isNotNull();
         assertThat("/403").isEqualTo(modelAndViewTest.getViewName());
-
     }
 }

@@ -17,14 +17,13 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity     // placement ici de l'annotation @Entity pour lisibilité du code
+@Entity
 public class Rating {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "rating_id") // necessaire uniquement si on veut imposer un nom de table particulier
     private Integer ratingId;
 
-    @NotBlank(message = "MoodysRating cannot be blank") // annotation de validation plutot pour type string
+    @NotBlank(message = "MoodysRating cannot be blank")
     private String moodysRating;
 
     @NotBlank(message = "SanPRating cannot be blank")
@@ -33,7 +32,7 @@ public class Rating {
     @NotBlank(message = "FitchRating cannot be blank")
     private String fitchRating;
 
-    @NotNull(message = "Order number cannot be blank")// annotation de validation plus large que @NotBlank
+    @NotNull(message = "Order number cannot be blank")
     @Max(100000)
     @Min(0)
     private Integer orderNumber;

@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -33,6 +35,11 @@ public class RuleNameController {
 
         List<RuleName> ruleNames = ruleService.findAll();
         model.addAttribute("ruleNames", ruleNames);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String remoteUserName = authentication.getName();
+        model.addAttribute("remoteUser", remoteUserName);
+
         return "ruleName/list";
     }
 
@@ -76,7 +83,7 @@ public class RuleNameController {
             @PathVariable("id") Integer id,
             @Valid RuleName ruleName,
             BindingResult result,
-            Model mode
+            Model model
     ) {
 
         logger.info("Requete pour l'update d'un ruleName");

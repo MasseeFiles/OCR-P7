@@ -122,6 +122,6 @@ INSERT INTO trade (account, type, buy_quantity)
 -- Remplissage table user
 INSERT INTO _user (user_name, password, full_name, role)
     VALUES
-    ('user1' , 'pass1' , 'tomName' , 'admin'),
-    ('user2' , 'pass2' , 'jackName' , 'user'),
-    ('user3' , 'pass3' , 'lilyName' , 'admin');
+    ('user1' , 'pasS123?' , 'tomName' , 'admin'),
+    ('user2' , 'pasS123?' , 'jackName' , 'user'),
+    ('user3' , 'pasS123?' , 'lilyName' , 'admin');

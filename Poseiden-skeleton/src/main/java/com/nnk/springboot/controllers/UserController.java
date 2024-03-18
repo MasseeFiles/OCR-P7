@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +34,11 @@ public class UserController {
 
         List<UserApp> userApps = userService.findAll();
         model.addAttribute("userApps", userService.findAll());
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String remoteUserName = authentication.getName();
+        model.addAttribute("remoteUser", remoteUserName);
+
         return "user/list";
     }
 
@@ -55,7 +62,6 @@ public class UserController {
         if (result.hasErrors()) {
             return "user/add";
         } else {
-            //Encodage du password avant persistence en BDD
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             userApp.setPassword(encoder.encode(userApp.getPassword()));
             userService.add(userApp);

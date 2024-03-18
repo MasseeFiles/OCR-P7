@@ -12,14 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 public class HomeController {
     private static final Logger logger = LogManager.getLogger("HomeController");
 
-//    @RequestMapping("/home")
-//	public String home(Model model)	{
-//
-//        logger.info("Requete pour l'affichage de la page Home");
-
-//        return "home";
-//}
-
     @RequestMapping("/home")
     public ModelAndView home() {
 

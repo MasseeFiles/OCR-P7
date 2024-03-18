@@ -43,7 +43,7 @@ public class RuleNameControllerTests {
     @Test
     @WithMockUser(username = "userEmail1")
     void home_shouldReturnViewAndModelUpdated() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders    //methode perform sert à envoyer la request lors du test
+        mockMvc.perform(MockMvcRequestBuilders
                         .get("/ruleName/list")
                 )
                 .andExpect(MockMvcResultMatchers
@@ -111,7 +111,7 @@ public class RuleNameControllerTests {
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/ruleName/update/1")
                 )
-        //THEN
+                //THEN
                 .andExpect(MockMvcResultMatchers
                         .status().isOk())
                 .andExpect(MockMvcResultMatchers

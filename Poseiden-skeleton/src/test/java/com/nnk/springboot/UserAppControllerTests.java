@@ -1,6 +1,5 @@
 package com.nnk.springboot;
 
-import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.domain.UserApp;
 import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.services.*;
@@ -13,7 +12,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
@@ -24,16 +22,22 @@ public class UserAppControllerTests {
 
     @MockBean
     private UserRepository userRepository;
+
     @MockBean
     private UserService userService;
+
     @MockBean
     private RatingService ratingService;
+
     @MockBean
     private BidListService bidListService;
+
     @MockBean
     private CurvePointService curvePointService;
+
     @MockBean
     private TradeService tradeService;
+
     @MockBean
     private RuleService ruleNameService;
 
@@ -68,7 +72,6 @@ public class UserAppControllerTests {
     void validate_shouldReturnRedirectView() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/user/validate")
-//                        .param("userId", "1")
                         .param("userName", "userName1")
                         .param("password", "Pass123!")
                         .param("fullName", "userFullName1")
@@ -84,16 +87,16 @@ public class UserAppControllerTests {
     @Test
     @WithMockUser(username = "userEmail1")
     void validate_shouldReturnFormView() throws Exception {
-            mockMvc.perform(MockMvcRequestBuilders
-                            .post("/user/validate")
-                            .param("id", "100")
-                            .with(csrf())
-                    )
-                    .andExpect(MockMvcResultMatchers
-                            .status().isOk())
-                    .andExpect(MockMvcResultMatchers
-                            .view().name("user/add"));
-        }
+        mockMvc.perform(MockMvcRequestBuilders
+                        .post("/user/validate")
+                        .param("id", "100")
+                        .with(csrf())
+                )
+                .andExpect(MockMvcResultMatchers
+                        .status().isOk())
+                .andExpect(MockMvcResultMatchers
+                        .view().name("user/add"));
+    }
 
     @Test
     @WithMockUser(username = "userEmail1")
@@ -107,7 +110,7 @@ public class UserAppControllerTests {
                         .get("/user/update/1")
                 )
 
-        //THEN
+                //THEN
                 .andExpect(MockMvcResultMatchers
                         .status().isOk())
                 .andExpect(MockMvcResultMatchers

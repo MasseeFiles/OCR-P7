@@ -1,6 +1,5 @@
 package com.nnk.springboot;
 
-import com.nnk.springboot.configuration.SpringSecurityConfig;
 import com.nnk.springboot.domain.UserApp;
 import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.services.UserService;
@@ -9,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Optional;
 

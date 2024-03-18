@@ -9,12 +9,14 @@ import java.util.List;
 @Service
 public class BidListServiceImpl implements BidListService {
     private final BidListRepository bidListRepository;
+
     public BidListServiceImpl(BidListRepository bidListRepository) {
         this.bidListRepository = bidListRepository;
     }
 
     @Override
-    public List<BidList> findAll() { return bidListRepository.findAll();
+    public List<BidList> findAll() {
+        return bidListRepository.findAll();
     }
 
     @Override

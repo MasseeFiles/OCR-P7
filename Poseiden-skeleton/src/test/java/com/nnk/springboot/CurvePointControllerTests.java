@@ -45,7 +45,7 @@ public class CurvePointControllerTests {
     @Test
     @WithMockUser(username = "userEmail1")
     void home_shouldReturnViewAndModelUpdated() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders    //methode perform sert à envoyer la request lors du test
+        mockMvc.perform(MockMvcRequestBuilders
                         .get("/curvePoint/list")
                 )
                 .andExpect(MockMvcResultMatchers
@@ -87,7 +87,7 @@ public class CurvePointControllerTests {
     @Test
     @WithMockUser(username = "userEmail1")
     void validate_shouldReturnFormView() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders    //methode perform sert à envoyer la request lors du test
+        mockMvc.perform(MockMvcRequestBuilders
                         .post("/bidList/validate")
                         .param("id", "100")
                         .with(csrf())
@@ -137,7 +137,7 @@ public class CurvePointControllerTests {
     @Test
     @WithMockUser(username = "userEmail1")
     void updateCurvePoint_shouldReturnFormView() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders    //methode perform sert à envoyer la request lors du test
+        mockMvc.perform(MockMvcRequestBuilders
                         .post("/curvePoint/update/1")
                         .param("id", "1")
                         .with(csrf())

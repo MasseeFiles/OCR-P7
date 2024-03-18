@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,6 +33,11 @@ public class BidListController {
 
         List<BidList> bidLists = bidListService.findAll();
         model.addAttribute("bidLists", bidLists);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String remoteUserName = authentication.getName();
+        model.addAttribute("remoteUser", remoteUserName);
+
         return "bidList/list";
     }
 
@@ -59,7 +66,7 @@ public class BidListController {
         return "redirect:/bidList/list";
     }
 
-    @GetMapping("/bidList/update/{id}") //Affichage du form UPDATE
+    @GetMapping("/bidList/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
 
         logger.info("Requete pour l'affichage du formulaire d'update d'un bidList");
@@ -69,7 +76,7 @@ public class BidListController {
         return "bidList/update";
     }
 
-    @PostMapping("/bidList/update/{id}")    //UPDATE
+    @PostMapping("/bidList/update/{id}")
     public String updateBidList(
             @PathVariable("id") Integer id,
             @Valid BidList bidList,
@@ -87,7 +94,7 @@ public class BidListController {
         return "redirect:/bidList/list";
     }
 
-    @GetMapping("/bidList/delete/{id}")     //DELETE
+    @GetMapping("/bidList/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
         bidListService.delete(id);
         return "redirect:/bidList/list";
