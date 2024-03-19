@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -40,19 +41,15 @@ public class HomeControllerTests {
     private RuleService ruleNameService;
 
     @Test
+    @WithMockUser(username = "userEmail1")
     void home_shouldReturnObjectModelAndViewView() throws Exception {
         MvcResult mvcResult =
                 mockMvc.perform(MockMvcRequestBuilders
                                 .get("/home"))
-                                .andReturn();
+                        .andReturn();
 
         ModelAndView modelAndViewTest = mvcResult.getModelAndView();
-        String test = modelAndViewTest.getViewName();
-//
-        assertThat(test).isNotNull();
-//        assert modelAndViewTest != null;
-//        String viewExpected = modelAndViewTest.getViewName();
-//        assertThat(viewExpected).isEqualTo("/home");
-
+        String viewExpected = modelAndViewTest.getViewName();
+        assertThat(viewExpected).isEqualTo("/home");
     }
 }
