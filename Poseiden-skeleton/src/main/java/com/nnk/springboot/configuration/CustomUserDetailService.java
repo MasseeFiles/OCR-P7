@@ -11,6 +11,17 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/**
+ * Classe implémentant un UserDetailService.
+ * Permet de définir où et quelles informations doivent être
+ * recherchées dans l'appli correspondant au UserName et au Password
+ * fournit par un utilisateur qui veut s'identifier
+ * Renvoit un UserDetails qui contient les informations
+ * disponibles en interne correspondant au UserName et au Password
+ * fournis
+ * @see SpringSecurityConfig
+ */
+
 @Service
 public class CustomUserDetailService implements UserDetailsService {
     @Autowired
@@ -22,7 +33,7 @@ public class CustomUserDetailService implements UserDetailsService {
 
         if (optionalUser.isPresent()) {
             var userFound = optionalUser.get();
-            UserDetails userDetails = User.builder()        //classe User de springSecurity differente de classe User du domain
+            UserDetails userDetails = User.builder()        //classe User de SpringSecurity differente de classe User du domain (UserApp)
                     .username(userFound.getUserName())
                     .password(userFound.getPassword())
                     .roles(userFound.getRole())
