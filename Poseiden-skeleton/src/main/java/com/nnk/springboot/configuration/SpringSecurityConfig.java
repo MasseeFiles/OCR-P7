@@ -29,7 +29,7 @@ public class SpringSecurityConfig {
      * Bean de configuration de la SecurityFilterChain.
      *
      * Permet de définir quels filtres de controle SpringSecurity doit appliquer et
-     * à quels moments pour la partie authentification et la partie authorisation)
+     * à quels moments pour la partie authentification et la partie authorisation
      * Configuration via un objet HttpSecurity
      */
     @Bean

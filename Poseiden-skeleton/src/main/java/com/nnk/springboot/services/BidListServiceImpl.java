@@ -21,7 +21,7 @@ public class BidListServiceImpl implements BidListService {
 
     @Override
     public BidList findById(Integer id) {
-        return bidListRepository.findById(id)     //optional<rating>
+        return bidListRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("BidList not found : Id used " + id));
     }
 

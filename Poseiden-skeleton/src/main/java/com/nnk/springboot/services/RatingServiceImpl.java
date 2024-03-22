@@ -26,7 +26,7 @@ public class RatingServiceImpl implements RatingService {
 
     @Override
     public Rating findById(Integer id) {
-        return ratingRepository.findById(id)     //optional<rating>
+        return ratingRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Rating not found : Id used " + id));
     }
 
